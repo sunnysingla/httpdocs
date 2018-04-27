@@ -1,0 +1,1830 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Hangfire;
+using System.IO;
+
+namespace OneSearchLib
+{
+    public enum CapType
+    {
+        Daily,
+        Weekly,
+        Monthly
+    }
+    public class API
+    {
+        private Int32 dbid;
+        private Guid identifier;
+        private String name;
+        private String family;
+        private bool active;
+        private double flat_rpl;
+
+        private Int32 dsubmissions;
+        private Int32 wsubmissions;
+        private Int32 msubmissions;
+
+        private Int32 dexclusives;
+        private Int32 wexclusives;
+        private Int32 mexclusives;
+
+        private String type;
+        private String iframe_url;
+        private String iframe_prepop;
+
+        private static String dbtable = "tblConfigApi";
+
+        // Iframe EduInteractive Config Items
+
+        private String iframe_eduinter_source;
+        private String iframe_eduinter_apikey;
+
+        // CampusExplorer Config Items
+
+        private String campusExplorer_source;
+        private String campusExplorer_authorization_token;
+
+        // Education Dynamics Config Items
+
+        private String educationdynamics_trackid;
+
+        // LeadCurrent Config Items
+
+        private String leadcurrent_guid;
+        private String leadcurrent_tracking_source;
+        private String leadcurrent_lcapikey;
+
+        // Neutron/Proton Config Items
+
+        private String proton_adid;
+
+        // Keypath Config Items
+
+        private String keypath_userid;
+        private String keypath_password;
+        private String keypath_eid;
+        private String keypath_vendor_id;
+
+        // Clickspark Config Items
+
+        private String clickspark_authkey;
+        private String clickspark_vendor_id;
+
+        // Graspy Config Items
+
+        private String graspy_api_key;
+        private String graspy_affid;
+
+        // Ave100 Config Items
+
+        private String ave100_username;
+        private String ave100_password;
+        private String ave100_categoryid;
+        private String ave100_deal_set_ids;
+        private String ave100_call_center_id;
+
+        // AXD Config Items
+
+        private String axd_authkey;
+
+        // DMS Config Items
+
+        private String dms_provider_id;
+        private String dms_lead_process_name;
+
+        // Quinstreet Config Items
+
+        private String quinstreet_authorization_token;
+        private String quinstreet_tag;
+
+        // Mediaspike Config Items
+
+        private String aycv2_token;
+
+
+        [JsonIgnore]
+        public int DatabaseId
+        {
+            get
+            {
+                return dbid;
+            }
+            set
+            {
+                dbid = value;
+            }
+        }
+
+        public Guid Identifier
+        {
+            get
+            {
+                return identifier;
+            }
+            set
+            {
+                identifier = value;
+            }
+        }
+        public bool Active
+        {
+            get
+            {
+                return active;
+            }
+            set
+            {
+                active = value;
+            }
+        }
+        [JsonIgnore]
+        public Int32 DailySubmissions
+        {
+            get
+            {
+                return dsubmissions;
+            }
+            set
+            {
+                dsubmissions = value;
+            }
+        }
+        [JsonIgnore]
+        public Int32 WeeklySubmissions
+        {
+            get
+            {
+                return wsubmissions;
+            }
+            set
+            {
+                wsubmissions = value;
+            }
+        }
+        [JsonIgnore]
+        public Int32 MonthlySubmissions
+        {
+            get
+            {
+                return msubmissions;
+            }
+            set
+            {
+                msubmissions = value;
+            }
+        }
+        [JsonIgnore]
+        public Int32 DailyExclusives
+        {
+            get
+            {
+                return dexclusives;
+            }
+            set
+            {
+                dexclusives = value;
+            }
+        }
+        [JsonIgnore]
+        public Int32 WeeklyExclusives
+        {
+            get
+            {
+                return wexclusives;
+            }
+            set
+            {
+                wexclusives = value;
+            }
+        }
+        [JsonIgnore]
+        public Int32 MonthlyExclusives
+        {
+            get
+            {
+                return mexclusives;
+            }
+            set
+            {
+                mexclusives = value;
+            }
+        }
+        [JsonIgnore]
+        public double FlatRPL
+        {
+            get
+            {
+                return flat_rpl;
+            }
+            set
+            {
+                flat_rpl = value;
+            }
+        }
+        public String ApiName
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+            }
+        }
+        [JsonIgnore]
+        public String IframeURL
+        {
+            get
+            {
+                return iframe_url;
+            }
+            set
+            {
+                iframe_url = value;
+            }
+        }
+        [JsonIgnore]
+        public String IframePrepop
+        {
+            get
+            {
+                return iframe_prepop;
+            }
+            set
+            {
+                iframe_prepop = value;
+            }
+        }
+        public String ApiType
+        {
+            get
+            {
+                return type;
+            }
+            set
+            {
+                type = value;
+            }
+        }
+        [JsonIgnore]
+        public String Iframe_EduInteractive_Source
+        {
+            get
+            {
+                return iframe_eduinter_source;
+            }
+            set
+            {
+                iframe_eduinter_source = value;
+            }
+        }
+        [JsonIgnore]
+        public String Iframe_EduInteractive_ApiKey
+        {
+            get
+            {
+                return iframe_eduinter_apikey;
+            }
+            set
+            {
+                iframe_eduinter_apikey = value;
+            }
+        }
+        [JsonIgnore]
+        public String CampusExplorer_Source
+        {
+            get
+            {
+                return campusExplorer_source;
+            }
+            set
+            {
+                campusExplorer_source = value;
+            }
+        }
+        [JsonIgnore]
+        public String CampusExplorer_AuthorizationToken
+        {
+            get
+            {
+                return campusExplorer_authorization_token;
+            }
+            set
+            {
+                campusExplorer_authorization_token = value;
+            }
+        }
+        [JsonIgnore]
+        public String EducationDynamics_TrackId
+        {
+            get
+            {
+                return educationdynamics_trackid;
+            }
+            set
+            {
+                educationdynamics_trackid = value;
+            }
+        }
+        [JsonIgnore]
+        public String ApiFamily
+        {
+            get
+            {
+                return family;
+            }
+            set
+            {
+                family = value;
+            }
+        }
+        [JsonIgnore]
+        public String LeadCurrent_Guid
+        {
+            get
+            {
+                return leadcurrent_guid;
+            }
+            set
+            {
+                leadcurrent_guid = value;
+            }
+        }
+        [JsonIgnore]
+        public String LeadCurrent_Tracking_Source
+        {
+            get
+            {
+                return leadcurrent_tracking_source;
+            }
+            set
+            {
+                leadcurrent_tracking_source = value;
+            }
+        }
+        [JsonIgnore]
+        public String LeadCurrent_LeadConduitApiKey
+        {
+            get
+            {
+                return leadcurrent_lcapikey;
+            }
+            set
+            {
+                leadcurrent_lcapikey = value;
+            }
+        }
+
+        [JsonIgnore]
+        public String Proton_Adid
+        {
+            get
+            {
+                return proton_adid;
+            }
+            set
+            {
+                proton_adid = value;
+            }
+        }
+        [JsonIgnore]
+        public String Keypath_EID
+        {
+            get
+            {
+                return keypath_eid;
+            }
+            set
+            {
+                keypath_eid = value;
+            }
+        }
+        [JsonIgnore]
+        public String Keypath_Password
+        {
+            get
+            {
+                return keypath_password;
+            }
+            set
+            {
+                keypath_password = value;
+            }
+        }
+        [JsonIgnore]
+        public String Keypath_UserID
+        {
+            get
+            {
+                return keypath_userid;
+            }
+            set
+            {
+                keypath_userid = value;
+            }
+        }
+        [JsonIgnore]
+        public String Keypath_VendorID
+        {
+            get
+            {
+                return keypath_vendor_id;
+            }
+            set
+            {
+                keypath_vendor_id = value;
+            }
+        }
+        [JsonIgnore]
+        public String Clickspark_Authkey
+        {
+            get
+            {
+                return clickspark_authkey;
+            }
+            set
+            {
+                clickspark_authkey = value;
+            }
+        }
+        [JsonIgnore]
+        public String Clickspark_VendorID
+        {
+            get
+            {
+                return clickspark_vendor_id;
+            }
+            set
+            {
+                clickspark_vendor_id = value;
+            }
+        }
+        [JsonIgnore]
+        public String Graspy_AffID
+        {
+            get
+            {
+                return graspy_affid;
+            }
+            set
+            {
+                graspy_affid = value;
+            }
+        }
+        [JsonIgnore]
+        public String Graspy_API_Key
+        {
+            get
+            {
+                return graspy_api_key;
+            }
+            set
+            {
+                graspy_api_key = value;
+            }
+        }
+        [JsonIgnore]
+        public String Avenue100_Username
+        {
+            get
+            {
+                return ave100_username;
+            }
+            set
+            {
+                ave100_username = value;
+            }
+        }
+        [JsonIgnore]
+        public String Avenue100_Password
+        {
+            get
+            {
+                return ave100_password;
+            }
+            set
+            {
+                ave100_password = value;
+            }
+        }
+        [JsonIgnore]
+        public String Avenue100_CategoryIds
+        {
+            get
+            {
+                return ave100_categoryid;
+            }
+            set
+            {
+                ave100_categoryid = value;
+            }
+        }
+        [JsonIgnore]
+        public String Avenue100_Deal_Set_Ids
+        {
+            get
+            {
+                return ave100_deal_set_ids;
+            }
+            set
+            {
+                ave100_deal_set_ids = value;
+            }
+        }
+        [JsonIgnore]
+        public String Avenue100_CallCenter_Id
+        {
+            get
+            {
+                return ave100_call_center_id;
+            }
+            set
+            {
+                ave100_call_center_id = value;
+            }
+        }
+        [JsonIgnore]
+        public String AXD_AuthKey
+        {
+            get
+            {
+                return axd_authkey;
+            }
+            set
+            {
+                axd_authkey = value;
+            }
+        }
+        [JsonIgnore]
+        public String DMS_LeadProcessName
+        {
+            get
+            {
+                return dms_lead_process_name;
+            }
+            set
+            {
+                dms_lead_process_name = value;
+            }
+        }
+        [JsonIgnore]
+        public String DMS_ProviderID
+        {
+            get
+            {
+                return dms_provider_id;
+            }
+            set
+            {
+                dms_provider_id = value;
+            }
+        }
+        [JsonIgnore]
+        public String Quinstreet_Tag
+        {
+            get
+            {
+                return quinstreet_tag;
+            }
+            set
+            {
+                quinstreet_tag = value;
+            }
+        }
+        [JsonIgnore]
+        public String Quinstreet_AuthorizationToken
+        {
+            get
+            {
+                return quinstreet_authorization_token;
+            }
+            set
+            {
+                quinstreet_authorization_token = value;
+            }
+        }
+        [JsonIgnore]
+        public String AYCV2_Token
+        {
+            get
+            {
+                return aycv2_token;
+            }
+            set
+            {
+                aycv2_token = value;
+            }
+        }
+        public static API[] GetApis(String apiID)
+        {
+
+
+            ArrayList allAPIs = new ArrayList();
+            API api;
+
+            System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection();
+            conn.ConnectionString = DB.ConnectionString;
+            conn.Open();
+
+            System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "SELECT * FROM " + dbtable + " WHERE identifier = @identifier";
+            cmd.Parameters.AddWithValue("@identifier", apiID);
+
+            System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+
+                    api = new API();
+                    api.DatabaseId = Int32.Parse(reader["id"].ToString());
+                    api.ApiFamily = reader["family"].ToString();
+                    api.Identifier = Guid.Parse(reader["identifier"].ToString());
+                    api.ApiName = reader["name"].ToString();
+                    api.Active = bool.Parse(reader["active"].ToString());
+                    api.FlatRPL = double.Parse(reader["flat_rpl"].ToString());
+                    api.ApiType = reader["type"].ToString();
+                    api.IframeURL = reader["iframe_url"].ToString();
+                    api.IframePrepop = reader["iframe_prepop"].ToString();
+
+                    api.DailySubmissions = Int32.Parse(reader["dsubmissions"].ToString());
+                    api.WeeklySubmissions = Int32.Parse(reader["wsubmissions"].ToString());
+                    api.MonthlySubmissions = Int32.Parse(reader["msubmissions"].ToString());
+
+                    api.DailyExclusives = Int32.Parse(reader["dexclusives"].ToString());
+                    api.WeeklyExclusives = Int32.Parse(reader["wexclusives"].ToString());
+                    api.MonthlyExclusives = Int32.Parse(reader["mexclusives"].ToString());
+
+                    // Iframe EduInteractive specific
+
+                    api.iframe_eduinter_apikey = reader["iframe_eduinter_apikey"].ToString();
+                    api.iframe_eduinter_source = reader["iframe_eduinter_source"].ToString();
+
+                    // CampusExplorer specific
+
+                    api.campusExplorer_source = reader["campusexplorer_source"].ToString();
+                    api.campusExplorer_authorization_token = reader["campusexplorer_authorization_token"].ToString();
+
+                    // Education Dynamics specific 
+
+                    api.educationdynamics_trackid = reader["educationdynamics_trackid"].ToString();
+
+                    // LeadCurrent specific
+
+                    api.leadcurrent_guid = reader["leadcurrent_guid"].ToString();
+                    api.leadcurrent_tracking_source = reader["leadcurrent_tracking_source"].ToString();
+                    api.leadcurrent_lcapikey = reader["leadcurrent_lcapikey"].ToString();
+
+                    // Neutron/Proton specific
+
+                    api.proton_adid = reader["proton_adid"].ToString();
+
+                    // Keypath
+
+                    api.keypath_userid = reader["keypath_userid"].ToString();
+                    api.keypath_password = reader["keypath_password"].ToString();
+                    api.keypath_eid = reader["keypath_eid"].ToString();
+                    api.keypath_vendor_id = reader["keypath_vendor_id"].ToString();
+
+                    // Clickspark specific
+
+                    api.clickspark_authkey = reader["clickspark_authkey"].ToString();
+                    api.clickspark_vendor_id = reader["clickspark_vendor_id"].ToString();
+
+                    // Graspy specific
+
+                    api.graspy_api_key = reader["graspy_api_key"].ToString();
+                    api.graspy_affid = reader["graspy_affid"].ToString();
+
+                    // Ave100 specific
+
+                    api.ave100_username = reader["ave100_username"].ToString();
+                    api.ave100_password = reader["ave100_password"].ToString();
+                    api.ave100_call_center_id = reader["ave100_call_center_id"].ToString();
+                    api.ave100_categoryid = reader["ave100_categoryid"].ToString();
+                    api.ave100_deal_set_ids = reader["ave100_deal_set_ids"].ToString();
+
+                    // AXD specific
+
+                    api.axd_authkey = reader["axd_authkey"].ToString();
+
+                    // DMS specific
+
+                    api.dms_lead_process_name = reader["dms_lead_process_name"].ToString();
+                    api.dms_provider_id = reader["dms_provider_id"].ToString();
+
+                    // Quinstreet specific
+
+                    api.quinstreet_tag = reader["quinstreet_tag"].ToString();
+                    api.quinstreet_authorization_token = reader["quinstreet_authorization_token"].ToString();
+
+                    // AYCV2 specific
+
+                    api.aycv2_token = reader["aycv2_token"].ToString();
+
+                    allAPIs.Add(api);
+
+                }
+            }
+            conn.Close();
+
+            return (API[])allAPIs.ToArray(typeof(API));
+        }
+        public static API[] GetApis()
+        {
+
+            ArrayList allAPIs = new ArrayList();
+            API api;
+
+            System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection();
+            conn.ConnectionString = DB.ConnectionString;
+            conn.Open();
+
+            System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "SELECT * FROM " + dbtable + " ORDER BY name";
+
+            System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+
+                    api = new API();
+                    api.DatabaseId = Int32.Parse(reader["id"].ToString());
+                    api.ApiFamily = reader["family"].ToString();
+                    api.Identifier = Guid.Parse(reader["identifier"].ToString());
+                    api.ApiName = reader["name"].ToString();
+                    api.Active = bool.Parse(reader["active"].ToString());
+                    api.FlatRPL = double.Parse(reader["flat_rpl"].ToString());
+                    api.ApiType = reader["type"].ToString();
+                    api.IframeURL = reader["iframe_url"].ToString();
+                    api.IframePrepop = reader["iframe_prepop"].ToString();
+
+                    api.DailySubmissions = Int32.Parse(reader["dsubmissions"].ToString());
+                    api.WeeklySubmissions = Int32.Parse(reader["wsubmissions"].ToString());
+                    api.MonthlySubmissions = Int32.Parse(reader["msubmissions"].ToString());
+
+                    api.DailyExclusives = Int32.Parse(reader["dexclusives"].ToString());
+                    api.WeeklyExclusives = Int32.Parse(reader["wexclusives"].ToString());
+                    api.MonthlyExclusives = Int32.Parse(reader["mexclusives"].ToString());
+
+                    // Iframe EduInteractive specific
+
+                    api.iframe_eduinter_apikey = reader["iframe_eduinter_apikey"].ToString();
+                    api.iframe_eduinter_source = reader["iframe_eduinter_source"].ToString();
+
+                    // CampusExplorer specific
+
+                    api.campusExplorer_source = reader["campusexplorer_source"].ToString();
+                    api.campusExplorer_authorization_token = reader["campusexplorer_authorization_token"].ToString();
+
+                    // Education Dynamics specific 
+
+                    api.educationdynamics_trackid = reader["educationdynamics_trackid"].ToString();
+
+                    // LeadCurrent specific
+
+                    api.leadcurrent_guid = reader["leadcurrent_guid"].ToString();
+                    api.leadcurrent_tracking_source = reader["leadcurrent_tracking_source"].ToString();
+                    api.leadcurrent_lcapikey = reader["leadcurrent_lcapikey"].ToString();
+
+                    // Neutron/Proton specific
+
+                    api.proton_adid = reader["proton_adid"].ToString();
+
+                    // Keypath
+
+                    api.keypath_userid = reader["keypath_userid"].ToString();
+                    api.keypath_password = reader["keypath_password"].ToString();
+                    api.keypath_eid = reader["keypath_eid"].ToString();
+                    api.keypath_vendor_id = reader["keypath_vendor_id"].ToString();
+
+                    // Clickspark specific
+
+                    api.clickspark_authkey = reader["clickspark_authkey"].ToString();
+                    api.clickspark_vendor_id = reader["clickspark_vendor_id"].ToString();
+
+                    // Graspy specific
+
+                    api.graspy_api_key = reader["graspy_api_key"].ToString();
+                    api.graspy_affid = reader["graspy_affid"].ToString();
+
+                    // Ave100 specific
+
+                    api.ave100_username = reader["ave100_username"].ToString();
+                    api.ave100_password = reader["ave100_password"].ToString();
+                    api.ave100_call_center_id = reader["ave100_call_center_id"].ToString();
+                    api.ave100_categoryid = reader["ave100_categoryid"].ToString();
+                    api.ave100_deal_set_ids = reader["ave100_deal_set_ids"].ToString();
+
+                    // AXD specific
+
+                    api.axd_authkey = reader["axd_authkey"].ToString();
+
+                    // DMS specific
+
+                    api.dms_lead_process_name = reader["dms_lead_process_name"].ToString();
+                    api.dms_provider_id = reader["dms_provider_id"].ToString();
+
+                    // Quinstreet specific
+
+                    api.quinstreet_tag = reader["quinstreet_tag"].ToString();
+                    api.quinstreet_authorization_token = reader["quinstreet_authorization_token"].ToString();
+
+                    // AYCV2 specific
+
+                    api.aycv2_token = reader["aycv2_token"].ToString();
+
+                    allAPIs.Add(api);
+
+                }
+            }
+            conn.Close();
+
+            return (API[])allAPIs.ToArray(typeof(API));
+        }
+        public static IframeSearchResult[] SearchIframes(Search iframeSearch)
+        {
+            ActionLog.AddAction("API.CS-SEARCHIFRAMES", JsonConvert.SerializeObject(iframeSearch));
+
+            ArrayList allSearchResults = new ArrayList();
+
+            IframeSearchResult searchResult;
+
+            API[] apisToSearch;
+            if (iframeSearch.SearchIncludeAPIs == String.Empty)
+            {
+                apisToSearch = API.GetApis();
+            }
+            else
+            {
+                apisToSearch = API.GetApis(iframeSearch.SearchIncludeAPIs);
+            }
+            API apiToSearch;
+
+            for (int i = 0; i < apisToSearch.Length; i++)
+            {
+                apiToSearch = apisToSearch[i];
+
+                if (!apiToSearch.Active)
+                {
+                    continue;
+                }
+                if (apiToSearch.ApiType != "IFRAME")
+                {
+                    continue;
+                }
+                if (!APITargeting.TargetingPassed(iframeSearch, apiToSearch))
+                {
+                    continue;
+                }
+
+                searchResult = new IframeSearchResult();
+                searchResult.API_Identifier = apiToSearch.Identifier;
+                searchResult.API_Name = apiToSearch.name;
+
+                String url = apiToSearch.IframeURL + "?" + apiToSearch.IframePrepop;
+
+                String prospect_firstname = iframeSearch.ProspectFirstName;
+                String prospect_last_name = iframeSearch.ProspectLastName;
+                String prospect_street1 = iframeSearch.ProspectStreet1;
+                String prospect_postalcode = iframeSearch.ProspectPostalCode;
+                String prospect_phone1 = iframeSearch.ProspectPhone1;
+                String prospect_email = iframeSearch.ProspectEmail;
+                String traffic_source_code = iframeSearch.ProspectTrafficSourceCode;
+                String prospect_hsgradyr = iframeSearch.ProspectHighSchoolGraduationYear.ToString();
+                String prospect_ipaddress = iframeSearch.ProspectIPAddress;
+                String prospect_starttimeframe = iframeSearch.ProspectStartTimeframeMonths.ToString();
+                String prospect_edulevel = iframeSearch.ProspectHighestEducationLevel.Value;
+
+                switch (apiToSearch.ApiFamily)
+                {
+                    case "IFRAME_EDUINTER":
+                        prospect_starttimeframe = "2";
+                        switch (iframeSearch.ProspectHighestEducationLevel.Value)
+                        {
+                            case "K6":
+                            case "K7":
+                            case "K8":
+                            case "K9":
+                            case "K10":
+                            case "K11":
+                            case "K12":
+                            case "GED":
+                            case "HS":
+                            case "DIPL":
+                            case "CERT":
+                            case "PC":
+                            case "SCL":
+                                prospect_edulevel = "3";
+                                break;
+                            case "AS":
+                                prospect_edulevel = "5";
+                                break;
+                            case "BA":
+                                prospect_edulevel = "6";
+                                break;
+                            case "GC":
+                            case "MA":
+                                prospect_edulevel = "7";
+                                break;
+                            case "DO":
+                                prospect_edulevel = "8";
+                                break;
+                        }
+                        break;
+
+                }
+
+
+                url = url.Replace("[[traffic_source_code]]", Tools.EncodeString(traffic_source_code));
+                url = url.Replace("[[prospect_firstname]]", Tools.EncodeString(prospect_firstname));
+                url = url.Replace("[[prospect_last_name]]", Tools.EncodeString(prospect_last_name));
+                url = url.Replace("[[prospect_street1]]", Tools.EncodeString(prospect_street1));
+                url = url.Replace("[[prospect_postalcode]]", Tools.EncodeString(prospect_postalcode));
+                url = url.Replace("[[prospect_phone1]]", Tools.EncodeString(prospect_phone1));
+                url = url.Replace("[[prospect_email]]", Tools.EncodeString(prospect_email));
+                url = url.Replace("[[prospect_hsgradyr]]", Tools.EncodeString(prospect_hsgradyr));
+
+                url = url.Replace("[[prospect_ipaddress]]", Tools.EncodeString(prospect_ipaddress));
+                url = url.Replace("[[prospect_starttimeframe]]", Tools.EncodeString(prospect_starttimeframe));
+                url = url.Replace("[[prospect_edulevel]]", Tools.EncodeString(prospect_edulevel));
+
+                // Iframe EduInteractive Specific
+
+                url = url.Replace("[[iframe_eduinter_source]]", Tools.EncodeString(apiToSearch.Iframe_EduInteractive_Source));
+                url = url.Replace("[[iframe_eduinter_apikey]]", Tools.EncodeString(apiToSearch.Iframe_EduInteractive_ApiKey));
+
+                searchResult.URL = url;
+
+                allSearchResults.Add(searchResult);
+
+            }
+
+            return (IframeSearchResult[])allSearchResults.ToArray(typeof(IframeSearchResult));
+        }
+        //public static IframeSearchResult [] SearchIframes(Search iframeSearch)
+        //{
+        //    ArrayList allSearchResults = new ArrayList();
+
+        //    IframeSearchResult searchResult;
+
+        //    API[] apisToSearch;
+        //    apisToSearch = API.GetApis(apiSearch.SearchIncludeAPIs);
+        //    }
+        //    API apiToSearch;
+
+        //    for (int i = 0; i < apisToSearch.Length; i++)
+        //    {
+        //        apiToSearch = apisToSearch[i];
+
+        //        if (!apiToSearch.Active)
+        //        {
+        //            continue;
+        //        }
+
+        //        switch (apiToSearch.ApiFamily)
+        //        {
+        //            case "CAMPUSEXPLORER":
+        //                CampusExplorerAPI ceapi = new CampusExplorerAPI();
+        //                allSearchResults = ceapi.GetSearchResults(apiSearch, apiToSearch);
+        //                break;
+        //            case "EDDY":
+        //                EducationDynamicsAPI eddyapi = new EducationDynamicsAPI();
+        //                allSearchResults = eddyapi.GetSearchResults(apiSearch, apiToSearch);
+        //                break;
+        //            case "LEADCURRENT":
+        //                LeadCurrentAPI lcapi = new LeadCurrentAPI();
+        //                allSearchResults = lcapi.GetSearchResults(apiSearch, apiToSearch);
+        //                break;
+        //            case "PROTON":
+        //                ProtonAPI protonapi = new ProtonAPI();
+        //                allSearchResults = protonapi.GetSearchResults(apiSearch, apiToSearch);
+        //                break;
+        //            case "KEYPATH":
+        //                KeypathAPI keypathapi = new KeypathAPI();
+        //                allSearchResults = keypathapi.GetSearchResults(apiSearch, apiToSearch);
+        //                break;
+        //            case "CLICKSPARK":
+        //                ClicksparkAPI csapi = new ClicksparkAPI();
+        //                allSearchResults = csapi.GetSearchResults(apiSearch, apiToSearch);
+        //                break;
+        //            case "GRASPY":
+        //                GraspyAPI grapi = new GraspyAPI();
+        //                allSearchResults = grapi.GetSearchResults(apiSearch, apiToSearch);
+        //                break;
+        //            case "AVE100":
+        //                Avenue100API ave100api = new Avenue100API();
+        //                allSearchResults = ave100api.GetSearchResults(apiSearch, apiToSearch);
+        //                break;
+        //            case "AXD":
+        //                AXD_API axdapi = new AXD_API();
+        //                allSearchResults = axdapi.GetSearchResults(apiSearch, apiToSearch);
+        //                break;
+        //            case "DMS":
+        //                DMSAPI dmsapi = new DMSAPI();
+        //                allSearchResults = dmsapi.GetSearchResults(apiSearch, apiToSearch);
+        //                break;
+        //            case "DMSWT":
+        //                DMSWTAPI dmswtapi = new DMSWTAPI();
+        //                allSearchResults = dmswtapi.GetSearchResults(apiSearch, apiToSearch);
+        //                break;
+
+        //        }
+
+        //    }
+
+        //    return (SearchResult[])allSearchResults.ToArray(typeof(SearchResult));
+        //}
+        public static void IncrementSubmissions(Int32 apiDatabaseId)
+        {
+            ActionLog.AddAction("API.CS-INCREMENTSUBMISSIONS", apiDatabaseId.ToString());
+
+            System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection();
+            conn.ConnectionString = DB.ConnectionString;
+
+
+            System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand();
+            cmd.Connection = conn;
+            conn.Open();
+
+            cmd.CommandText = "update [dbo].[tblConfigApi] set dsubmissions = dsubmissions + 1,wsubmissions = wsubmissions + 1,msubmissions = msubmissions + 1 where id = @id";
+            cmd.Parameters.AddWithValue("@id", apiDatabaseId);
+            int i = cmd.ExecuteNonQuery();
+            cmd.Connection.Close();
+
+        }
+        public static void IncrementExclusives(Int32 apiDatabaseId)
+        {
+            ActionLog.AddAction("API.CS-INCREMENTEXCLUSIVES", apiDatabaseId.ToString());
+
+            System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection();
+            conn.ConnectionString = DB.ConnectionString;
+
+
+            System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand();
+            cmd.Connection = conn;
+            conn.Open();
+
+            cmd.CommandText = "update [dbo].[tblConfigApi] set dexclusives = dexclusives + 1,wexclusives = wexclusives + 1,mexclusives = mexclusives + 1 where id = @id";
+            cmd.Parameters.AddWithValue("@id", apiDatabaseId);
+            int i = cmd.ExecuteNonQuery();
+            cmd.Connection.Close();
+
+        }
+        public static void ResetSubmissions(CapType type)
+        {
+            ActionLog.AddAction("API.CS-RESETSUBMISSIONS", type.ToString());
+
+            System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection();
+            conn.ConnectionString = DB.ConnectionString;
+
+            String sql = String.Empty;
+
+            System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand();
+            cmd.Connection = conn;
+            conn.Open();
+
+            switch (type)
+            {
+                case CapType.Daily:
+                    sql = "dcapamt=0";
+                    break;
+                case CapType.Weekly:
+                    sql = "dcapamt=0, wcapamt=0";
+                    break;
+                case CapType.Monthly:
+                    sql = "dcapamt=0, wcapamt=0, mcapamt=0";
+                    break;
+
+            }
+
+            cmd.CommandText = "update [dbo].[tblConfigApi] set " + sql;
+
+            int i = cmd.ExecuteNonQuery();
+            cmd.Connection.Close();
+
+        }
+        public static void ResetExclusives(CapType type)
+        {
+            ActionLog.AddAction("API.CS-RESETEXCLUSIVES", type.ToString());
+
+            System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection();
+            conn.ConnectionString = DB.ConnectionString;
+
+            String sql = String.Empty;
+
+            System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand();
+            cmd.Connection = conn;
+            conn.Open();
+
+            switch (type)
+            {
+                case CapType.Daily:
+                    sql = "dcapamt=0";
+                    break;
+                case CapType.Weekly:
+                    sql = "dcapamt=0, wcapamt=0";
+                    break;
+                case CapType.Monthly:
+                    sql = "dcapamt=0, wcapamt=0, mcapamt=0";
+                    break;
+
+            }
+
+            cmd.CommandText = "update [dbo].[tblConfigApi] set " + sql;
+
+            int i = cmd.ExecuteNonQuery();
+            cmd.Connection.Close();
+
+        }
+        public static SearchResult[] SearchAPIs(Search apiSearch)
+        {
+            ActionLog.AddAction("API.CS-SEARCHAPIS", JsonConvert.SerializeObject(apiSearch));
+
+            ArrayList allSearchResults = new ArrayList();
+
+            SearchResult searchResult;
+
+
+
+            API[] apisToSearch;
+            if (apiSearch.SearchIncludeAPIs == String.Empty)
+            {
+                apisToSearch = API.GetApis();
+            }
+            else
+            {
+                apisToSearch = API.GetApis(apiSearch.SearchIncludeAPIs);
+            }
+            API apiToSearch;
+            Task<ArrayList>[] taskArray = new Task<ArrayList>[apisToSearch.Length];
+
+            for (int i = 0; i < apisToSearch.Length; i++)
+            {
+                apiToSearch = apisToSearch[i];
+
+                if (!apiToSearch.Active)
+                {
+                    continue;
+                }
+                if (apiToSearch.ApiType != "API")
+                {
+                    continue;
+                }
+                if (!APITargeting.TargetingPassed(apiSearch, apiToSearch))
+                {
+                    continue;
+                }
+                // Check to see if cached results exist, if they do, return them
+
+                //SearchResult[] searchCache = SearchResult.GetCachedResults(apiSearch, apiToSearch);
+                //if (searchCache.Length > 0)
+                //{
+                //    allSearchResults.AddRange(searchCache);
+                //    continue;
+                //}
+
+                // Otherwise move on to an actual real search
+
+                try
+                {
+                    switch (apiToSearch.ApiFamily)
+                    {
+                        case "CAMPUSEXPLORER":
+                            CampusExplorerAPI ceapi = new CampusExplorerAPI();
+
+                            taskArray[i] = Task<ArrayList>.Factory.StartNew(() => ceapi.GetSearchResults(apiSearch, apiToSearch));
+
+                            break;
+                        case "EDDY":
+                            EducationDynamicsAPI eddyapi = new EducationDynamicsAPI();
+                            taskArray[i] = Task<ArrayList>.Factory.StartNew(() => eddyapi.GetSearchResults(apiSearch, apiToSearch));
+                            //allSearchResults.AddRange(eddyapi.GetSearchResults(apiSearch, apiToSearch));
+                            break;
+                        case "LEADCURRENT":
+                            LeadCurrentAPI lcapi = new LeadCurrentAPI();
+                            taskArray[i] = Task<ArrayList>.Factory.StartNew(() => lcapi.GetSearchResults(apiSearch, apiToSearch));
+                            //allSearchResults.AddRange(lcapi.GetSearchResults(apiSearch, apiToSearch));
+                            break;
+                        case "PROTON":
+                            ProtonAPI protonapi = new ProtonAPI();
+                            taskArray[i] = Task<ArrayList>.Factory.StartNew(() => protonapi.GetSearchResults(apiSearch, apiToSearch));
+                            //allSearchResults.AddRange(protonapi.GetSearchResults(apiSearch, apiToSearch));
+                            break;
+                        case "KEYPATH":
+                            KeypathAPI keypathapi = new KeypathAPI();
+                            taskArray[i] = Task<ArrayList>.Factory.StartNew(() => keypathapi.GetSearchResults(apiSearch, apiToSearch));
+                            //allSearchResults.AddRange(keypathapi.GetSearchResults(apiSearch, apiToSearch));
+                            break;
+                        case "CLICKSPARK":
+                            ClicksparkAPI csapi = new ClicksparkAPI();
+                            taskArray[i] = Task<ArrayList>.Factory.StartNew(() => csapi.GetSearchResults(apiSearch, apiToSearch));
+                            //allSearchResults.AddRange(csapi.GetSearchResults(apiSearch, apiToSearch));
+                            break;
+                        case "GRASPY":
+                            GraspyAPI grapi = new GraspyAPI();
+                            taskArray[i] = Task<ArrayList>.Factory.StartNew(() => grapi.GetSearchResults(apiSearch, apiToSearch));
+                            //allSearchResults.AddRange(grapi.GetSearchResults(apiSearch, apiToSearch));
+                            break;
+                        case "AVE100":
+                            Avenue100API ave100api = new Avenue100API();
+                            taskArray[i] = Task<ArrayList>.Factory.StartNew(() => ave100api.GetSearchResults(apiSearch, apiToSearch));
+                            //allSearchResults.AddRange(ave100api.GetSearchResults(apiSearch, apiToSearch));
+                            break;
+                        case "AXD":
+                            AXD_API axdapi = new AXD_API();
+                            taskArray[i] = Task<ArrayList>.Factory.StartNew(() => axdapi.GetSearchResults(apiSearch, apiToSearch));
+                            //allSearchResults.AddRange(axdapi.GetSearchResults(apiSearch, apiToSearch));
+                            break;
+                        case "DMS":
+                            DMSAPI dmsapi = new DMSAPI();
+                            taskArray[i] = Task<ArrayList>.Factory.StartNew(() => dmsapi.GetSearchResults(apiSearch, apiToSearch));
+                            //allSearchResults.AddRange(dmsapi.GetSearchResults(apiSearch, apiToSearch));
+                            break;
+                        case "DMSWT":
+                            DMSWTAPI dmswtapi = new DMSWTAPI();
+                            taskArray[i] = Task<ArrayList>.Factory.StartNew(() => dmswtapi.GetSearchResults(apiSearch, apiToSearch));
+                            //allSearchResults.AddRange(dmswtapi.GetSearchResults(apiSearch, apiToSearch));
+                            break;
+                        case "QUINSTREET":
+                            QuinstreetAPI qsapi = new QuinstreetAPI();
+                            taskArray[i] = Task<ArrayList>.Factory.StartNew(() => qsapi.GetSearchResults(apiSearch, apiToSearch));
+                            //allSearchResults.AddRange(qsapi.GetSearchResults(apiSearch, apiToSearch));
+                            break;
+                        case "QUINSTREETWT":
+                            QuinstreetWTAPI qswtapi = new QuinstreetWTAPI();
+                            taskArray[i] = Task<ArrayList>.Factory.StartNew(() => qswtapi.GetSearchResults(apiSearch, apiToSearch));
+                            //allSearchResults.AddRange(qswtapi.GetSearchResults(apiSearch, apiToSearch));
+                            break;
+                        case "AYCV2":
+                            AYCV2_API aycv2api = new AYCV2_API();
+                            taskArray[i] = Task<ArrayList>.Factory.StartNew(() => aycv2api.GetSearchResults(apiSearch, apiToSearch));
+                            //allSearchResults.AddRange(aycv2api.GetSearchResults(apiSearch, apiToSearch));
+                            break;
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    String msg = String.Empty;
+                    msg += "**********************************************************************\r\n";
+                    msg += "Surrounding Function: SearchAPIs\r\n";
+                    msg += "Date: " + DateTime.Now.ToLongDateString() + "\r\n";
+                    msg += "Exception type: " + ex.GetType().FullName + "\r\n";
+
+                    var stackTrace = new StackTrace(ex, true);
+                    var allFrames = stackTrace.GetFrames().ToList();
+                    foreach (var frame in allFrames)
+                    {
+                        msg += "FileName: " + frame.GetFileName() + "\r\n";
+                        msg += "LineNumber: " + frame.GetFileLineNumber() + "\r\n";
+                        var method = frame.GetMethod();
+                        msg += "MethodName: " + method.Name + "\r\n";
+                        msg += "ClassName: " + frame.GetMethod().DeclaringType.ToString() + "\r\n";
+
+                    }
+                    try
+                    {
+                        msg += "ApplicationName: " + Assembly.GetCallingAssembly().GetName().Name + "\r\n";
+
+                    }
+                    catch
+                    {
+                        msg += "ApplicationName:\r\n";
+                    }
+
+                    msg += "ErrorMessage: " + ex.Message + "\r\n";
+                    msg += "StackTrace: " + ex.StackTrace + "\r\n";
+
+                    if (ex.InnerException != null)
+                    {
+                        msg += "InnerException: " + ex.InnerException.ToString() + "\r\n";
+                        msg += "InnerExceptionMessage: " + ex.InnerException.Message + "\r\n";
+                    }
+                    msg += "**********************************************************************\r\n";
+                    //Trace.TraceError(msg);
+                    File.AppendAllText("C:\\logs\\OneSearchLib.txt", msg);
+                }
+
+            }
+            var results = new ArrayList[taskArray.Length];
+            for (int i = 0; i < taskArray.Length; i++)
+            {
+                if (taskArray[i] != null)
+                    try
+                    {
+                        allSearchResults.AddRange(taskArray[i].Result);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+
+            }
+
+
+            return API.FilterResults(apiSearch, allSearchResults);
+        }
+
+        public static void SearchAPIsAsync(Search apiSearch)
+        {
+            ActionLog.AddAction("API.CS-SEARCHAPISASYNC", JsonConvert.SerializeObject(apiSearch));
+
+            ArrayList allSearchResults = new ArrayList();
+
+            SearchResult searchResult;
+
+            ArrayList alTasks = new ArrayList();
+
+            API[] apisToSearch;
+            if (apiSearch.SearchIncludeAPIs == String.Empty)
+            {
+                apisToSearch = API.GetApis();
+            }
+            else
+            {
+                apisToSearch = API.GetApis(apiSearch.SearchIncludeAPIs);
+            }
+            API apiToSearch;
+
+            for (int i = 0; i < apisToSearch.Length; i++)
+            {
+                apiToSearch = apisToSearch[i];
+
+                if (!apiToSearch.Active)
+                {
+                    continue;
+                }
+                if (apiToSearch.ApiType != "API")
+                {
+                    continue;
+                }
+                if (!APITargeting.TargetingPassed(apiSearch, apiToSearch))
+                {
+                    continue;
+                }
+                // Check to see if cached results exist, if they do, return them
+
+                SearchResult[] searchCache = SearchResult.GetCachedResults(apiSearch, apiToSearch);
+                if (searchCache.Length > 0)
+                {
+                    allSearchResults.AddRange(searchCache);
+                    continue;
+                }
+
+                // Otherwise move on to an actual real search
+
+                switch (apiToSearch.ApiFamily)
+                {
+                    case "CAMPUSEXPLORER":
+                        //CampusExplorerAPI ceapi = new CampusExplorerAPI();
+                        //alTasks.Add(Task.Factory.StartNew(e { ceapi.GetSearchResultsAsync(apiSearch, apiToSearch); }));
+                        String apiId = apiToSearch.Identifier.ToString();
+                        String searchId = apiSearch.SearchIdentifier.ToString();
+                        alTasks.Add(new Task(delegate { CampusExplorerAPI_Async.GetSearchResults(searchId, apiId); }));
+                        break;
+                    case "EDDY":
+                        String eddyapiId = apiToSearch.Identifier.ToString();
+                        String eddysearchId = apiSearch.SearchIdentifier.ToString();
+                        EducationDynamicsAPI eddyapi = new EducationDynamicsAPI();
+                        alTasks.Add(new Task(delegate { eddyapi.GetSearchResults(apiSearch, apiToSearch); }));
+                        break;
+                    case "LEADCURRENT":
+                        String lcapiId = apiToSearch.Identifier.ToString();
+                        String lcsearchId = apiSearch.SearchIdentifier.ToString();
+                        LeadCurrentAPI lcapi = new LeadCurrentAPI();
+                        alTasks.Add(new Task(delegate { lcapi.GetSearchResults(apiSearch, apiToSearch); }));
+                        break;
+                    case "PROTON":
+                        String protonapiId = apiToSearch.Identifier.ToString();
+                        String protonsearchId = apiSearch.SearchIdentifier.ToString();
+                        ProtonAPI protonapi = new ProtonAPI();
+                        alTasks.Add(new Task(delegate { protonapi.GetSearchResults(apiSearch, apiToSearch); }));
+                        break;
+                    case "KEYPATH":
+                        String kpapiId = apiToSearch.Identifier.ToString();
+                        String kpsearchId = apiSearch.SearchIdentifier.ToString();
+                        KeypathAPI keypathapi = new KeypathAPI();
+                        alTasks.Add(new Task(delegate { keypathapi.GetSearchResults(apiSearch, apiToSearch); }));
+                        break;
+                    case "CLICKSPARK":
+                        String csapiId = apiToSearch.Identifier.ToString();
+                        String cssearchId = apiSearch.SearchIdentifier.ToString();
+                        ClicksparkAPI csapi = new ClicksparkAPI();
+                        alTasks.Add(new Task(delegate { csapi.GetSearchResults(apiSearch, apiToSearch); }));
+                        break;
+                    case "GRASPY":
+                        String grapiId = apiToSearch.Identifier.ToString();
+                        String grsearchId = apiSearch.SearchIdentifier.ToString();
+                        GraspyAPI grapi = new GraspyAPI();
+                        alTasks.Add(new Task(delegate { grapi.GetSearchResults(apiSearch, apiToSearch); }));
+                        break;
+                    case "AVE100":
+                        String avapiId = apiToSearch.Identifier.ToString();
+                        String avsearchId = apiSearch.SearchIdentifier.ToString();
+                        Avenue100API ave100api = new Avenue100API();
+                        alTasks.Add(new Task(delegate { ave100api.GetSearchResults(apiSearch, apiToSearch); }));
+                        break;
+                    case "AXD":
+                        String axapiId = apiToSearch.Identifier.ToString();
+                        String axsearchId = apiSearch.SearchIdentifier.ToString();
+                        AXD_API axdapi = new AXD_API();
+                        alTasks.Add(new Task(delegate { axdapi.GetSearchResults(apiSearch, apiToSearch); }));
+                        break;
+                    case "DMS":
+                        String dmsapiId = apiToSearch.Identifier.ToString();
+                        String dmssearchId = apiSearch.SearchIdentifier.ToString();
+                        DMSAPI dmsapi = new DMSAPI();
+                        alTasks.Add(new Task(delegate { dmsapi.GetSearchResults(apiSearch, apiToSearch); }));
+                        break;
+                    case "DMSWT":
+                        String dmwtapiId = apiToSearch.Identifier.ToString();
+                        String dmwtsearchId = apiSearch.SearchIdentifier.ToString();
+                        DMSWTAPI dmswtapi = new DMSWTAPI();
+                        alTasks.Add(new Task(delegate { dmswtapi.GetSearchResults(apiSearch, apiToSearch); }));
+                        break;
+                    case "QUINSTREET":
+                        String qsapiId = apiToSearch.Identifier.ToString();
+                        String qssearchId = apiSearch.SearchIdentifier.ToString();
+                        //QuinstreetAPI qsapi = new QuinstreetAPI();
+                        //alTasks.Add(new Task(delegate { qsapi.GetSearchResults(apiSearch, apiToSearch); }));
+                        alTasks.Add(new Task(delegate { QuinstreetAPI_Async.GetSearchResults(qssearchId, qsapiId); }));
+                        break;
+                    case "QUINSTREETWT":
+                        String qswtapiId = apiToSearch.Identifier.ToString();
+                        String qswtsearchId = apiSearch.SearchIdentifier.ToString();
+                        QuinstreetWTAPI qswtapi = new QuinstreetWTAPI();
+                        allSearchResults.AddRange(qswtapi.GetSearchResults(apiSearch, apiToSearch));
+                        break;
+                    case "AYCV2":
+                        String ayapiId = apiToSearch.Identifier.ToString();
+                        String aysearchId = apiSearch.SearchIdentifier.ToString();
+                        AYCV2_API aycv2api = new AYCV2_API();
+                        alTasks.Add(new Task(delegate { aycv2api.GetSearchResults(apiSearch, apiToSearch); }));
+                        break;
+
+                }
+
+            }
+
+            Task[] tasks = (Task[])alTasks.ToArray(typeof(Task));
+            Task.WaitAll(tasks);
+            //foreach (Task t in tasks)
+            //{
+            //    t.Start();
+            //}
+
+            //ActionLog.AddAction("API.CS-SEARCHAPISASYNC", JsonConvert.SerializeObject(apiSearch));
+
+            //ArrayList allSearchResults = new ArrayList();
+
+            //SearchResult searchResult;
+
+            //var tasks = new List<Task>;
+
+            //API[] apisToSearch;
+            //if (apiSearch.SearchIncludeAPIs == String.Empty)
+            //{
+            //    apisToSearch = API.GetApis();
+            //}
+            //else
+            //{
+            //    apisToSearch = API.GetApis(apiSearch.SearchIncludeAPIs);
+            //}
+            //API apiToSearch;
+
+            //for (int i = 0; i < apisToSearch.Length; i++)
+            //{
+            //    apiToSearch = apisToSearch[i];
+
+            //    if (!apiToSearch.Active)
+            //    {
+            //        continue;
+            //    }
+            //    if (apiToSearch.ApiType != "API")
+            //    {
+            //        continue;
+            //    }
+            //    if (!APITargeting.TargetingPassed(apiSearch, apiToSearch))
+            //    {
+            //        continue;
+            //    }
+            //    // Check to see if cached results exist, if they do, return them
+
+            //    SearchResult[] searchCache = SearchResult.GetCachedResults(apiSearch, apiToSearch);
+            //    if (searchCache.Length > 0)
+            //    {
+            //        allSearchResults.AddRange(searchCache);
+            //        continue;
+            //    }
+
+            //    // Otherwise move on to an actual real search
+
+            //    switch (apiToSearch.ApiFamily)
+            //    {
+            //        case "CAMPUSEXPLORER":
+            //            CampusExplorerAPI ceapi = new CampusExplorerAPI();
+            //            BackgroundJob.Enqueue(() => ceapi.GetSearchResults(apiSearch, apiToSearch));
+            //            break;
+            //        case "EDDY":
+            //            EducationDynamicsAPI eddyapi = new EducationDynamicsAPI();
+            //            BackgroundJob.Enqueue(() => eddyapi.GetSearchResults(apiSearch, apiToSearch));
+            //            break;
+            //        case "LEADCURRENT":
+            //            LeadCurrentAPI lcapi = new LeadCurrentAPI();
+            //            BackgroundJob.Enqueue(() => lcapi.GetSearchResults(apiSearch, apiToSearch));
+            //            break;
+            //        case "PROTON":
+            //            ProtonAPI protonapi = new ProtonAPI();
+            //            BackgroundJob.Enqueue(() => protonapi.GetSearchResults(apiSearch, apiToSearch));
+            //            break;
+            //        case "KEYPATH":
+            //            KeypathAPI keypathapi = new KeypathAPI();
+            //            BackgroundJob.Enqueue(() => keypathapi.GetSearchResults(apiSearch, apiToSearch));
+            //            break;
+            //        case "CLICKSPARK":
+            //            ClicksparkAPI csapi = new ClicksparkAPI();
+            //            BackgroundJob.Enqueue(() => csapi.GetSearchResults(apiSearch, apiToSearch));
+            //            break;
+            //        case "GRASPY":
+            //            GraspyAPI grapi = new GraspyAPI();
+            //            BackgroundJob.Enqueue(() => grapi.GetSearchResults(apiSearch, apiToSearch));
+            //            break;
+            //        case "AVE100":
+            //            Avenue100API ave100api = new Avenue100API();
+            //            BackgroundJob.Enqueue(() => ave100api.GetSearchResults(apiSearch, apiToSearch));
+            //            break;
+            //        case "AXD":
+            //            AXD_API axdapi = new AXD_API();
+            //            BackgroundJob.Enqueue(() => axdapi.GetSearchResults(apiSearch, apiToSearch));
+            //            break;
+            //        case "DMS":
+            //            DMSAPI dmsapi = new DMSAPI();
+            //            BackgroundJob.Enqueue(() => dmsapi.GetSearchResults(apiSearch, apiToSearch));
+            //            break;
+            //        case "DMSWT":
+            //            DMSWTAPI dmswtapi = new DMSWTAPI();
+            //            BackgroundJob.Enqueue(() => dmswtapi.GetSearchResults(apiSearch, apiToSearch));
+            //            break;
+            //        case "QUINSTREET":
+            //            QuinstreetAPI qsapi = new QuinstreetAPI();
+            //            BackgroundJob.Enqueue(() => qsapi.GetSearchResults(apiSearch, apiToSearch));
+            //            break;
+            //        case "AYCV2":
+            //            AYCV2_API aycv2api = new AYCV2_API();
+            //            BackgroundJob.Enqueue(() => aycv2api.GetSearchResults(apiSearch, apiToSearch));
+            //            break;
+
+            //    }
+
+            //}
+
+
+
+            //return API.FilterResults(apiSearch, allSearchResults);
+        }
+        public static SearchResult[] FilterResults(Search rawSearch, ArrayList rawResults)
+        {
+            ArrayList filteredResults = new ArrayList();
+
+            foreach (SearchResult r in rawResults)
+            {
+
+                if (rawSearch.SearchIncludeExclusiveLeads.Value == "0")
+                {
+                    if (r.IsExclusiveLead)
+                    {
+                        continue;
+                    }
+                }
+
+                if (rawSearch.ProspectHasComputer.Value == "0")
+                {
+                    if (r.IsOnline)
+                    {
+                        continue;
+                    }
+                }
+
+                if (rawSearch.ProspectHasInternet.Value == "0")
+                {
+                    if (r.IsOnline)
+                    {
+                        continue;
+                    }
+                }
+
+                if (rawSearch.ProspectLearningPreference.Value == "C")
+                {
+                    if (r.IsOnline)
+                    {
+                        continue;
+                    }
+                }
+
+                if (rawSearch.ProspectLearningPreference.Value == "O")
+                {
+                    if (!r.IsOnline)
+                    {
+                        continue;
+                    }
+                }
+
+                if (rawSearch.SearchAllowCustomQuestions.Value == "0")
+                {
+                    if (r.AdditionalQuestions != String.Empty)
+                    {
+                        continue;
+                    }
+                }
+
+                if (rawSearch.SearchIncludeGround.Value == "0")
+                {
+                    if (!r.IsOnline)
+                    {
+                        continue;
+                    }
+                }
+
+                if (rawSearch.SearchIncludeLeads.Value == "0")
+                {
+                    if (r.IsLead)
+                    {
+                        continue;
+                    }
+                }
+
+                if (rawSearch.SearchIncludeOnline.Value == "0")
+                {
+                    if (r.IsOnline)
+                    {
+                        continue;
+                    }
+                }
+
+                if (rawSearch.SearchIncludeWarmTransfers.Value == "0")
+                {
+                    if (r.IsTransfer)
+                    {
+                        continue;
+                    }
+                }
+
+
+
+                filteredResults.Add(r);
+
+            }
+
+            return (SearchResult[])filteredResults.ToArray(typeof(SearchResult));
+        }
+        public int LookupProgram(String lookupString)
+        {
+            ActionLog.AddAction("API.CS-LOOKUPPROGRAM", lookupString);
+
+            System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection();
+            conn.ConnectionString = DB.ConnectionString;
+            conn.Open();
+
+            int programId = -1;
+
+            System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "SELECT tblConfigProgramsId FROM tblConfigApiProgramLookup where tblConfigApiFamily = @family and lookupString = @lookupString";
+            cmd.Parameters.AddWithValue("@family", this.family);
+            cmd.Parameters.AddWithValue("lookupString", lookupString);
+
+            System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+
+                    programId = Int32.Parse(reader["tblConfigProgramsId"].ToString());
+
+                }
+            }
+            conn.Close();
+
+            return programId;
+        }
+        public API()
+        {
+
+        }
+        public API(String ident)
+        {
+            System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection();
+            conn.ConnectionString = DB.ConnectionString;
+            conn.Open();
+
+            System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "SELECT * FROM " + dbtable + " where identifier = @search_identifier";
+            cmd.Parameters.AddWithValue("@search_identifier", ident);
+
+            System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    dbid = Int32.Parse(reader["id"].ToString());
+                    identifier = Guid.Parse(reader["identifier"].ToString());
+                    name = reader["name"].ToString();
+                    family = reader["family"].ToString();
+                    active = bool.Parse(reader["active"].ToString());
+                    flat_rpl = double.Parse(reader["flat_rpl"].ToString());
+                    ApiType = reader["type"].ToString();
+                    IframeURL = reader["iframe_url"].ToString();
+                    IframePrepop = reader["iframe_prepop"].ToString();
+
+                    DailySubmissions = Int32.Parse(reader["dsubmissions"].ToString());
+                    WeeklySubmissions = Int32.Parse(reader["wsubmissions"].ToString());
+                    MonthlySubmissions = Int32.Parse(reader["msubmissions"].ToString());
+
+                    // Iframe EduInteractive specific
+
+                    iframe_eduinter_apikey = reader["iframe_eduinter_apikey"].ToString();
+                    iframe_eduinter_source = reader["iframe_eduinter_source"].ToString();
+
+                    // CampusExplorer Config Items
+
+                    campusExplorer_source = reader["campusexplorer_source"].ToString();
+                    campusExplorer_authorization_token = reader["campusexplorer_authorization_token"].ToString();
+
+                    // Education Dynamics Config Items
+
+                    educationdynamics_trackid = reader["educationdynamics_trackid"].ToString();
+
+                    // LeadCurrent specific
+
+                    leadcurrent_guid = reader["leadcurrent_guid"].ToString();
+                    leadcurrent_tracking_source = reader["leadcurrent_tracking_source"].ToString();
+                    leadcurrent_lcapikey = reader["leadcurrent_lcapikey"].ToString();
+
+                    // Neutron/Proton specific
+
+                    proton_adid = reader["proton_adid"].ToString();
+
+                    // Keypath
+
+                    keypath_userid = reader["keypath_userid"].ToString();
+                    keypath_password = reader["keypath_password"].ToString();
+                    keypath_eid = reader["keypath_eid"].ToString();
+                    keypath_vendor_id = reader["keypath_vendor_id"].ToString();
+
+                    // Clickspark specific
+
+                    clickspark_authkey = reader["clickspark_authkey"].ToString();
+                    clickspark_vendor_id = reader["clickspark_vendor_id"].ToString();
+
+                    // Graspy specific
+
+                    graspy_api_key = reader["graspy_api_key"].ToString();
+                    graspy_affid = reader["graspy_affid"].ToString();
+
+                    // Ave100 specific
+
+                    ave100_username = reader["ave100_username"].ToString();
+                    ave100_password = reader["ave100_password"].ToString();
+                    ave100_call_center_id = reader["ave100_call_center_id"].ToString();
+                    ave100_categoryid = reader["ave100_categoryid"].ToString();
+                    ave100_deal_set_ids = reader["ave100_deal_set_ids"].ToString();
+
+                    // AXD specific
+
+                    axd_authkey = reader["axd_authkey"].ToString();
+
+                    // DMS specific
+
+                    dms_lead_process_name = reader["dms_lead_process_name"].ToString();
+                    dms_provider_id = reader["dms_provider_id"].ToString();
+
+                    // Quinstreet specific
+
+                    quinstreet_tag = reader["quinstreet_tag"].ToString();
+                    quinstreet_authorization_token = reader["quinstreet_authorization_token"].ToString();
+
+                    // AYCV2 specific
+
+                    aycv2_token = reader["aycv2_token"].ToString();
+                }
+            }
+
+            conn.Close();
+        }
+
+    }
+}

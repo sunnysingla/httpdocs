@@ -1,0 +1,44 @@
+﻿table {
+    width: 100%;
+    height: 200px;
+}
+#MasterEntry {
+    margin-left: 20px;
+}
+.TopRow {
+    border-top: 2px solid #AAAAAA !important;
+}
+
+.tutorComplete {
+    border-top: 1.5px solid #AAAAAA !important;
+}
+#MasterEntry input[type=text] {
+    width: 95%;
+    padding: 1.5%;
+    margin-left: 2.5%;
+    margin-top:5%;
+    margin-bottom: 5%;
+}
+    table td, table th {
+        border: 1px solid #AAAAAA;
+    }
+
+table thead tr {
+    background-color: grey;
+    color: white;
+    height: 30px;
+}
+
+        table thead th {
+            font-weight: bold;
+            text-align: center;
+        }
+
+    table tfoot {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+        table tfoot td {
+            font-size: 14px;
+        }

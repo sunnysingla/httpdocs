@@ -1,0 +1,12 @@
+{
+  'type': 'service_account',
+  'project_id': 'calendarapi-192018',
+  'private_key_id': 'f8824a5d2164b21ea35701d351dc77245ba66800',
+  'private_key': '-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDKOMG5XgRhDKPt\nuRFQ9C0eq1FEaKjX1+s42A1bab/7dej0Uh4TqgBchbVa+kXAx5gv9+zlfK7/MqfC\nQcoc2NVjGy1fk+er5bi65m9rTGZneqOqj3EwqP7yCcaZvOkYvmJ0jBhml8Fqid8M\nHwyqzi5MfVkr2ZpiS0JQi6PJGR2X9rsckAVLMotKZW0ahm/l2q79/1MEtuh4iCj2\nCgsS1w4x9uy6WX6yqLXq5DP/NXq5bVqrrrE6RHZqY6cDkJF/P083OVIXQoy0Pjwc\nEqXBFfeajpUlAN1PmOAUFJvNFFezE7ZsNCmSHldBs941/Rsv+SRYjrW/YKRa9yAy\n0otu7OXRAgMBAAECggEABEodld8wLEIr4gQzIVVPSwoVmw618iooLlhVjt2t5Fl1\nG7r4MgZA+WAetN4qh53UP8Q8YrEj4dGYbGRKiL/IEFDzGUbBEHeQKmrD7JyTbtjT\noEUTAMC887O7DOd3HFQW245d4CM88j5tcaDg+xM3jojO0OwjPGLd9mkX4Xv7vDhG\ndU7qqkFVqPJ/3/Vdzq8rCj3GWnFqUv/xf2ks46v5/phq/Ssn4AdlZUBfAh9szIUi\nF+wAec2Pr47/Qa9ORNz56swTT08PACe6f5EdF8fnvzBFd9tkB7ISeUwWbGUb5MgI\nrvda6lUOxFyBuRnMNrXc/Ups7F2b0axbdhPB2/f04QKBgQDnn1jJ17grYwBn4LN+\nrETYhC5Io7YIFpPxIPlCvlmv+ZPH2fK+BW+c+AMNEOmTnhGKWVz1ue8FDHW1Vrju\n9KJf24pG8TMwD8EG2PQghuE72DyRlsLMP56H70pZwGvzw/Fv6Z7JcV0wcHPkzKFz\nlO4uS17zTystWCu9+Z/uBQ7Z6QKBgQDfgUJosJXcAAqaw44NPLhqs/sZ/dmqIp5I\nGFc56u9LwuJ3+VO/E85tQzZN+M4sS9Vc6Q9F3XIca7UDoIYA21k9HIV/dglKELo5\nx+bgpZjIkilhO+RIiYd268DjF6Oz6AbX7XnOL06vCtavm9eXbfkfhLdJHx2FoTFg\n2rgLL+TTqQKBgB4XI2/FaJWqXOkh1e/E7YS7V0/0hLd0R2/x+q/jDr+/yqUR+Wka\nR6+6wJq38cBNrrWselkp+JVNUxVl2MyiV13gpYwl1aKOyWLcWIrJOwWNSAEZ9uCV\n+0Bpo90ZFG0srXb+gLRm19ZtJYE53Fepp2+4NvOg+1j+tWAOx+oiGhXRAoGBAJCP\n1XlLRhK/ABzsAXQ0Yv+5G9/K3j96FrCA9eIjP9Xb3olE/dLoJ6tqPrSeChSClCV9\nJQDGY6lYTQNkj2f8eDLbwMkZepaqTRlUX9PLqA+K4jLe/x+fvLvBbsgzoRGbMNn2\n4sLmvFjhhMye2wo5+llViQtFkd29zedccI/j0XjJAoGAU3R0YsQ/Y+u0pqFMBXBG\n+pf3uakJjDOuTD5nJiMyzRG2L06cXIgX1Po2zNjTCignwfQDf2vp0/sPb+oqGydp\nQuKvkqkQINNxqG4+Q8lMyKB16dPPhAFg2GfVgGkCFdPqT0IyN4ww7y61q5nWZ27G\nsHWbH+hbh5+82OS6NrfxZ1Q=\n-----END PRIVATE KEY-----\n',
+  'client_email': 'calendarapi@calendarapi-192018.iam.gserviceaccount.com',
+  'client_id': '105265187350965202334',
+  'auth_uri': 'https://accounts.google.com/o/oauth2/auth',
+  'token_uri': 'https://accounts.google.com/o/oauth2/token',
+  'auth_provider_x509_cert_url': 'https://www.googleapis.com/oauth2/v1/certs',
+  'client_x509_cert_url': 'https://www.googleapis.com/robot/v1/metadata/x509/calendarapi%40calendarapi-192018.iam.gserviceaccount.com'
+}

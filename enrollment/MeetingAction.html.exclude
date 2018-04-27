@@ -1,0 +1,471 @@
+﻿`<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <!-- The jQuery library is a prerequisite for all jqSuite products -->
+    <script src="../Scripts/jquery-3.2.1.js?v=4"></script>
+
+    <!-- We support more than 40 localizations -->
+    <script src="../JsGrid/js/grid.locale-en.js?v=3"></script>
+
+    <!-- This is the Javascript file of jqGrid -->
+    <script src="../JsGrid/js/jquery.jqGrid.min.js?v=1"></script>
+
+    <!-- A link to a Boostrap  and jqGrid Bootstrap CSS siles-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css?v=1">
+    <link href="../JsGrid/CSS/ui.jqgrid-bootstrap.css?v=1" rel="stylesheet" />
+
+    <script src="../JsGrid/js/bootstrap.min.js?v=2"></script>
+
+    <link href="../CSS/FormStyle.css?v=3.6" rel="stylesheet" />
+
+    <script src="../DatePicker/js/dcalendar.picker.js?v=1.1"></script>
+
+    <link href="../DatePicker/CSS/dcalendar.picker.css?v=1.1" rel="stylesheet" />
+
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css?v=1.2" rel="stylesheet" type="text/css">
+
+    <!--<script src="../CustomJs/CreateInquiry.js?v=1"></script>-->
+    <script src="../CustomJs/UpdateInquiry.js?v=2.1"></script>alert
+    <script src="../CustomJs/GridTables.js?v=3.5"></script>
+
+    <script>
+
+    </script>
+    <style>
+        table#tblTutorAvailable {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #tblTutorAvailable td, #tblTutorAvailable th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        #tblTutorAvailable tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+    <script type="text/javascript">
+        var response;
+        var InquiryId;
+        function disabledAllcontrol() {
+            isdisabled_IA = 1;
+            document.getElementById("container").disabled = true;
+            var nodes = document.getElementById("container").getElementsByTagName('fieldset');
+            for (var i = 0; i < nodes.length; i++) {
+                nodes[i].disabled = true;
+                $(nodes[i]).css("color", "grey");
+            }
+            //$(".AddMoreStdName").attr("class", "AddMoreNotes_dis");
+            //$(".RemoveMoreStdName").attr("class", "RemoveMoreStdName_dis");
+        }
+        function enableAllcontrol() {
+            isdisabled_IA = 0;
+            document.getElementById("container").disabled = true;
+            var nodes = document.getElementById("container").getElementsByTagName('fieldset');
+            for (var i = 0; i < nodes.length; i++) {
+                nodes[i].disabled = false;
+                $(nodes[i]).removeAttr("style");
+            }
+            //$(".AddMoreStdName_dis").attr("class", "AddMoreStdName");
+            //$(".RemoveMoreStdName_dis").attr("class", "RemoveMoreStdName");
+        }
+
+        function GetEnrolementView() {
+            var QueryStrings = window.location.href.split('?')[1];
+            InquiryId = QueryStrings.split('&')[0].split('=')[1];
+
+
+            $.ajax({
+                type: "POST",
+                url: "Inquiry.aspx/GetEnrolementView_ById",
+                data: '{ Id:"' + InquiryId + '" }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response_a) {
+                    response = response_a;
+                    LoadAgain();
+                }
+            });
+        }
+        $(document).ready(function () {
+            GetEnrolementView();
+
+
+        });
+        function LoadAgain() {
+            for (var x = 0; x < 5; x++) {
+                $(".container input[number=" + x + "]").remove();
+                $(".container textarea[number=" + x + "]").remove();
+                $(".container1 input[number=" + x + "]").remove();
+                $(".container1 textarea[number=" + x + "]").remove();
+            }
+            NumberAdded = 0;
+            NumberAdded_Assessment = 0;
+            var objInquiry = JSON.parse(response.d[0]);
+            var ObjInquiryStudent = JSON.parse(response.d[1]);
+            var objAssessment = JSON.parse(response.d[2]);
+            var objMeeting = JSON.parse(response.d[3]);
+
+
+            $($("#StdName").find("input[placeholder=Date]")[0]).val(objInquiry[0].Date);
+            $($("#Grade").find("input[placeholder*=Contact]")[0]).val(objInquiry[0].ContactName);
+            $($("#Subject").find("input[placeholder=Email]")[0]).val(objInquiry[0].Email);
+            $($("#School").find("input[placeholder=Source]")[0]).val(objInquiry[0].Source);
+            $($("#Notes").find("textarea[placeholder=Notes]")[0]).val(objInquiry[0].Notes);
+
+            var Subject_Inquiry = "";
+            var Subject_Assessment = "";
+
+            for (var x = 0; x < ObjInquiryStudent.length; x++) {
+                if (x >= 1) {
+
+                    $(".AddMoreStdName").trigger('click');
+
+                }
+
+                $($("#StdName").find("input[placeholder*=Student]")[x]).val(ObjInquiryStudent[x].StudentName);
+                $($("#Grade").find("input[placeholder=Grade]")[x]).val(ObjInquiryStudent[x].Grade);
+                $($("#Subject").find("input[placeholder=Subject]")[x]).val(ObjInquiryStudent[x].Subjects);
+                Subject_Inquiry = Subject_Inquiry + ObjInquiryStudent[x].Subjects + "[" + ObjInquiryStudent[x].Grade + "]" + ",";
+                console.log(Subject_Inquiry);
+                $($("#School").find("input[placeholder=School]")[x]).val(ObjInquiryStudent[x].School);
+                $($("#Notes").find("textarea[placeholder=Notes]")[x + 1]).val(ObjInquiryStudent[x].Notes);
+            }
+
+            for (var x = 0; x < objAssessment.length; x++) {
+                //if (x >= 1) {
+
+                //    $(".Add_new1").trigger('click');
+                //}
+                //$($("#dvDate").find("input[placeholder=Date]")[x]).val(objAssessment[x].Date);
+                //$($("#dvSName").find("input[placeholder*=Contact]")[0]).val();
+                //$($("#dvSName").find("input[placeholder*=Student]")[x]).val(objAssessment[x].Student);
+                $($("#dvSubject").find("input[placeholder=Subject]")[x]).val(objAssessment[x]["Subject's"]);
+                Subject_Assessment = Subject_Assessment + objAssessment[x]["Subject's"] + ",";
+                //$($("#dvGrade").find("input[placeholder=Grade]")[x]).val(objAssessment[x].Grade);
+
+
+            }
+            $($("#dvContactName").find("input[placeholder*=Contact]")[0]).val(objMeeting[0]["Contact Name"]);
+            //$($("#dvAddress").find("input[placeholder*=Contact]")[0]).val(objMeeting[0]["Contact Name"]);
+            $($("#dvEmail").find("input[placeholder*=email]")[0]).val(objMeeting[0]["Contact Email"]);
+            $($("#dvStudents").find("input[placeholder*=Student]")[0]).val(objMeeting[0]["Student's"]);
+            $($("#dvSubjects").find("input[placeholder*=Subject]")[0]).val(Subject_Inquiry);
+
+            disabledAllcontrol();
+        }
+    </script>
+</head>
+<body>
+    <form id="contact" runat="server">
+        <h3 style="margin-left:20px;">Meeting Action</h3>
+        <div id="dvCreateInquiry">
+            <div class="container" id="container">
+                <fieldset id="StdName">
+                    <input placeholder="Date" type="text" tabindex="1" required autofocus>
+                    <input placeholder="Student Name" type="text" tabindex="6" required class="next">
+                    <span class="AddMoreStdName"><img src="../
+					"  /></span
+
+                </fieldset>
+                <fieldset id="Grade">
+                    <input placeholder="Contact Name" type="text" tabindex="2" required>
+                    <input placeholder="Grade" type="text" tabindex="7" required class="next">
+                    <span class="AddMoreGrade"><img src="../images/Add_Icon.jpg"  /></span
+                </fieldset>
+                <fieldset id="Subject">
+                    <input placeholder="Email" type="email" tabindex="3" required>
+                    <input placeholder="Subject" type="email" tabindex="8" required class="next">
+                    <span class="AddMoreSubject"><img src="../images/Add_Icon.jpg"  /></span
+                </fieldset>
+                <fieldset id="School">
+                    <input placeholder="Source" type="text" tabindex="4" required>
+                    <input placeholder="School" type="text" tabindex="9" required class="next">
+                    <span class="AddMoreSchool"><img src="../images/Add_Icon.jpg"  /></span
+                </fieldset>
+                <fieldset id="Notes">
+                    <textarea placeholder="Notes" tabindex="5" required></textarea>
+                    <textarea placeholder="Notes" tabindex="10" required class="next"></textarea>
+                    <span class="AddMoreNotes"><img src="../images/Add_Icon.jpg"  /></span
+                    <span class="RemoveMoreStdName" style="display: none"><img src="../images/Delete_Icon.jpg"  /></span
+                </fieldset>
+            </div>
+            <button name="Edit" style="float: right;width:auto !important;" type="submit">Edit</button>
+            <div class="container1">
+                <fieldset id="fsetAssessment">
+                    <legend>Generate Invoice</legend>
+                    <table style="width: 100%;">
+
+                        <tr>
+                            <td style="width: 47%" id="container2">
+
+                                <div id="dvContactName">
+                                    <input placeholder="Contact name" type="text" tabindex="100" required autofocus class="field" style="width: 80%;">
+
+                                </div>
+                                <div id="dvAddress">
+                                    <textarea placeholder="Contact address" tabindex="101" required style="width: 80%;"></textarea>
+                                </div>
+                                <div id="dvEmail">
+                                    <input placeholder="Contact email" type="email" tabindex="102" required class="field" style="width: 80%;">
+                                </div>
+                                <div id="dvStudents">
+                                    <input placeholder="Student(s)" type="text" tabindex="103" required class="field" style="width: 80%;">
+
+                                </div>
+                                <div id="dvSubjects">
+                                    <input placeholder="Subject(s)" type="text" tabindex="103" required class="field" style="width: 80%;">
+
+                                </div>
+                                <div id="dvHrs">
+                                    <input placeholder="Amount of hours purchased per subject" type="text" tabindex="104" required class="field" style="width: 80%;">
+
+                                </div>
+                                <div id="dvStudyHrs">
+                                    <input placeholder="Study hall hours puchased" type="text" tabindex="103" required class="field" style="width: 80%;">
+                                </div>
+                            </td>
+                            
+                            <td style="width: 47%">
+
+                                <div id="dvPlan">
+                                    <input placeholder="Type of plan" type="text" tabindex="200" required autofocus class="field" style="width: 80%;">
+                                </div>
+                                <div id="dvHRate">
+                                    <input placeholder="Hourly rate" type="text" tabindex="201" required class="field" style="width: 80%;">
+                                </div>
+                                <div id="dvPaymentMethod">
+                                    <input placeholder="Payment method" type="text" tabindex="202" required class="field" style="width: 80%;">
+                                </div>
+                                <div id="dvDPayment">
+                                    <input placeholder="Down payment" type="text" tabindex="203" required class="field" style="width: 80%;">
+                                </div>
+                                <div id="dvNFee">
+                                    <input placeholder="Net fee" type="text" tabindex="204" required class="field" style="width: 80%;">
+                                </div>
+                                <div id="dvBalance">
+                                    <input placeholder="Balance outstanding" type="text" tabindex="204" required class="field" style="width: 80%;">
+                                </div>
+
+                                <div id="dvBalancex" style="visibility:hidden">
+                                    <input placeholder="Balance outstanding" type="text" tabindex="204" required class="field" style="width: 80%;">
+                                </div>
+                                <div id="dvBalancexy" style="visibility:hidden">
+                                    <input placeholder="Balance outstanding" type="text" tabindex="204" required class="field" style="width: 80%;">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <button name="Update" type="submit" id="Inquiry-Update" data-submit="...Sending">Create Invoice</button>
+            <br />
+            <div id="styled-select">
+                <b>Select Student</b>
+                <select id="ddlInvoiceStudents" class="styled-select">
+                    <option value="0">Select Student</option>
+                </select>
+            </div>
+            <br />
+            <div class="container1">
+                <fieldset id="fSetScheduling">
+                    <legend>Scheduling Preferences</legend>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td>
+                                <div id="dvSubjectSP">
+                                    <input placeholder="Subject" type="text" tabindex="100" required autofocus class="field" style="width: 50%;">
+                                </div>
+                                <div id="dvTutorGendorSP">
+                                    <select id="ddlGenderSP" class="style-multiple" size=2>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                </div>
+                                <div id="dvStudentAvaibality">
+
+                                    <select name=ddlStudentAvabilitySP size=10 multiple class="style-multiple">
+                                        <optgroup label="Monday">
+                                            <option value="1">1:00-2:00</option>
+                                            <option value="2">2:00-3:00</option>
+                                            <option value="3">3:00-4:00</option>
+                                            <option value="4">4:00-5:00</option>
+                                            <option value="5">5:00-6:00</option>
+                                            <option value="6">6:00-7:00</option>
+                                            <option value="7">7:00-8:00</option>
+                                            <option value="8">8:00-9:00</option>
+                                            <option value="9">9:00-10:00</option>
+                                            <option value="10">10:00-11:00</option>
+                                        </optgroup>
+                                        <optgroup label="Tuesday">
+                                            <option value="11">1:00-2:00</option>
+                                            <option value="12">2:00-3:00</option>
+                                            <option value="13">3:00-4:00</option>
+                                            <option value="14">4:00-5:00</option>
+                                            <option value="15">5:00-6:00</option>
+                                            <option value="16">6:00-7:00</option>
+                                            <option value="17">7:00-8:00</option>
+                                            <option value="18">8:00-9:00</option>
+                                            <option value="19">9:00-10:00</option>
+                                            <option value="20">10:00-11:00</option>
+                                        </optgroup>
+                                        <optgroup label="Wednesday">
+                                            <option value="21">1:00-2:00</option>
+                                            <option value="22">2:00-3:00</option>
+                                            <option value="23">3:00-4:00</option>
+                                            <option value="24">4:00-5:00</option>
+                                            <option value="25">5:00-6:00</option>
+                                            <option value="26">6:00-7:00</option>
+                                            <option value="27">7:00-8:00</option>
+                                            <option value="28">8:00-9:00</option>
+                                            <option value="29">9:00-10:00</option>
+                                            <option value="30">10:00-11:00</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+
+                            </td>
+                        </tr>
+
+                    </table>
+                </fieldset>
+
+            </div>
+            <br />
+
+            <fieldset id="fSetAvailableTutor">
+                <legend>Available Tutors<a class="aAdd_top" href="javascript:void(0);" style="float:right; margin-right:40%;" >Add New Row</a></legend>
+                <table id="tblTutorAvailable" class="ui-jqgrid-btable ui-common-table table table-bordered">
+                    <tr class='jqgrow ui-row-ltr' id="0"><td class='jqgrid-rownum active'>Tutor Name</td><td class='jqgrid-rownum active'>Day</td><td class='jqgrid-rownum active'>Time</td><td class='jqgrid-rownum active'>Subject</td><td class='jqgrid-rownum active'>Gender</td><td class='jqgrid-rownum active'>Students</td><td class='jqgrid-rownum active'>Action</td></tr>
+                </table>
+            </fieldset>
+
+            <br />
+        </div>
+
+        <table id="calendar-demo" class="calendar"></table>
+        <script>
+
+            var RowsAdded = 0;
+            var lastId = 100;
+            $(".aAdd_top").click(function () {
+                RowsAdded = RowsAdded + 1;
+                lastId = lastId + 1;
+ 
+                var html = "";
+                html = html + "<tr class='jqgrow ui-row-ltr' id='" + lastId + "'>";
+                html = html + '<td class="jqgrid-rownum active"><input placeholder="Tutor Name" type="text" tabindex="450" required autofocus class="field"  style="width:150px;padding-bottom: 10px;" ></td>';
+                html = html + '<td class="jqgrid-rownum active"><select id="ddlDaysAT" class="styled-select" tabindex="451"    style="width:150px ! important;">';
+                var Days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+                for (var y = 0; y < Days.length; y++) {
+                    //if ($(options[x]).parent().attr("label") == Days[y])
+                    //    html = html + '<option value="' + Days[y] + '" selected>' + Days[y] + '</option>';
+                    //else
+                        html = html + '<option value="' + Days[y] + '">' + Days[y] + '</option>';
+                }
+                html = html + '</select></td>';
+                html = html + '<td  class="jqgrid-rownum active"><input  type="text" tabindex="100" required autofocus class="field"     tabindex="452"   style="width:100px;"></td>';
+                html = html + '<td  class="jqgrid-rownum active"><input placeholder="Subject" type="text" tabindex="100" required autofocus class="field"  tabindex="453"   style="width:100px;"   style="width:50px;"></td>';
+                html = html + '<td  class="jqgrid-rownum active"><select class="styled-select" id="ddlGenderAT"   style="width:100px ! important;">< option value= "Male" > Male</option ><option value="Female" tabindex="454" >Female</option></select ></td>';
+                html = html + '<td  class="jqgrid-rownum active"><input placeholder="Students" type="text" tabindex="100" required autofocus class="field"  tabindex="455"   style="width:200px;"></td>';
+                html = html + '<td  class="jqgrid-rownum active"><a href="javascript:void(0)" class="aDelete">Delete</a><a href="javascript:void(0)" class="aAdd" style="display:none;">Add</a></td>'
+                var LstRowId = $('#tblTutorAvailable tr:last').attr('id');
+                
+ 
+                html = html + "</tr>";
+                $('#tblTutorAvailable tr:last').after(html);
+                $(".aDelete").unbind("click");
+                $(".aDelete").click(function () {
+                    if (confirm('Are you sure to delete this Row?')) {
+                        RowsAdded = RowsAdded - 1;
+                        $(this).parent().parent().remove();
+                    }
+                });
+            });
+            $.jgrid.defaults.width = 780;
+            $.jgrid.defaults.responsive = true;
+            $.jgrid.defaults.styleUI = 'Bootstrap';
+            $('input[placeholder=Date]').dcalendarpicker();
+            $('#calendar-demo').dcalendar(); //creates the calendar
+            $('#calendar-demo').hide();
+            $(document).ready(function () {
+                $("select[name=ddlStudentAvabilitySP] option").click(function () {
+                    //alert($(this).parent().attr("label"));
+                    var options = $("select[name=ddlStudentAvabilitySP] option:checked");
+                    var html = "<tr class='jqgrow ui-row-ltr' id='rw_" + $(options[x]).val() + "' > <td class='jqgrid-rownum active'>Tutor Name</td> <td class='jqgrid-rownum active'>Day</td> <td class='jqgrid-rownum active'>Time</td> <td class='jqgrid-rownum active'>Subject</td> <td class='jqgrid-rownum active'>Gender</td> <td class='jqgrid-rownum active'>Students</td><td class='jqgrid-rownum active'>Action</td></tr>";
+                    for (var x = 0; x < options.length; x++) {
+                        html = html + "<tr class='jqgrow ui-row-ltr'>";
+                        html = html + '<td class="jqgrid-rownum active"><input placeholder="Tutor Name" type="text" tabindex="450" required autofocus class="field"  style="width:150px;padding-bottom: 10px;" ></td>';
+                        html = html + '<td class="jqgrid-rownum active"><select id="ddlDaysAT" class="styled-select" tabindex="451"    style="width:150px ! important;">';
+                        var Days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+                        for (var y = 0; y < Days.length; y++) {
+                            if ($(options[x]).parent().attr("label") == Days[y])
+                                html = html + '<option value="' + Days[y] + '" selected>' + Days[y] + '</option>';
+                            else
+                                html = html + '<option value="' + Days[y] + '">' + Days[y] + '</option>';
+                        }
+                        html = html + '</select></td>';
+                        html = html + '<td  class="jqgrid-rownum active"><input  type="text" tabindex="100" required autofocus class="field"   value="' + $(options[x]).html() + '" tabindex="452"   style="width:100px;"></td>';
+                        html = html + '<td  class="jqgrid-rownum active"><input placeholder="Subject" type="text" tabindex="100" required autofocus class="field"  tabindex="453"   style="width:100px;"   style="width:50px;"></td>';
+                        html = html + '<td  class="jqgrid-rownum active"><select class="styled-select" id="ddlGenderAT"   style="width:100px ! important;">< option value= "Male" > Male</option ><option value="Female" tabindex="454" >Female</option></select ></td>';
+                        html = html + '<td  class="jqgrid-rownum active"><input placeholder="Students" type="text" tabindex="100" required autofocus class="field"  tabindex="455"   style="width:200px;"></td>';
+                        html = html + '<td  class="jqgrid-rownum active"><a href="javascript:void(0)" class="aDelete">Delete</a><a href="javascript:void(0)" class="aAdd" style="display:none;">Add</a></td>'
+
+                        $("#tblTutorAvailable").html(html);
+                        html = html + "</tr>";
+                    }
+                    $(".aDelete").unbind("click");
+                    $(".aDelete").click(function () {
+                        if (confirm('Are you sure to delete this Row?')) {
+                            RowsAdded = RowsAdded - 1;
+                            $(this).parent().parent().remove();
+                        }
+                    });
+
+                });
+
+                $('button[name=discard]').click(function () {
+                    //LoadAgain();
+                    location.reload();
+                    return false;
+                });
+
+                $('button[name=Edit]').click(function () {
+
+                    enableAllcontrol();
+                    return false;
+                });
+
+
+
+                $gridEnroll = $("#EnrollList");
+                var colModelEnroll = [
+                    { name: "Tutor Name", width: 200, editable: true },
+                    { name: "Day", width: 100, editable: true },
+                    { name: "Time", width: 100, editable: true },
+                    { name: "Subject", width: 150, editable: true },
+                    { name: "Gender", width: 100, editable: true },
+                    { name: "Students", width: 300, editable: true }
+                ];
+                var objEnroll = {};
+
+
+                //$gridAssessment
+                setTimeout(function () {
+                    LoadGrid_Add(colModelEnroll, objEnroll, 'EnrollList', 'EnrollPager', $gridEnroll);
+
+                }, 2000);
+                $("#sData").on("click", function () {
+                    alert('hello');
+                });
+            });
+        </script>
+    </form>
+</body>
+</html>

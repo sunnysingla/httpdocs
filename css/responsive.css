@@ -1,0 +1,56 @@
+@media only screen and (max-width: 1180px) {
+	 .slutions_contaners_inner ul li{font-size:14px;}
+	 .navbar-nav > li > a {padding: 20px 13px; font-size: 16px;}	 
+}
+@media only screen and (max-width: 1090px) {
+	 
+	 .navbar-nav > li > a {padding: 20px 10px; font-size: 14px;}	 
+}
+
+@media only screen and (max-width: 980px) {
+	.navbar-nav > li > a {padding: 20px 3px;font-size: 12px;} 
+	.slutions_contaners > li{width:49%;}
+	.logospace{margin-left:10px;}
+	.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand { max-width: 130px;  width: 100%;}
+	.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand img {width: 100%;}
+	.form-control-contaner {margin-top: 20px;}
+	.header_filters h2{font-size:20px;}
+}
+
+@media only screen and (max-width: 768px) {
+	
+/*	//responsive accordin*/
+    .accordion {text-align: left; margin-top:20px;}
+	.accordion-title, .accordion-content {display: block;margin: 0;width: 100%;}
+    .accordion-title a { border:  1px solid grey;border-bottom: none; }
+    .accordion-title:last-of-type a {border-bottom:  1px solid grey;  }
+    .accordion-title a:hover,
+    .accordion-title.active a {background: #e7e7e7;}
+    .accordion-title a:before {content: "+"; width: 2em; display: inline-block; text-align: center;height: 50px; padding-top: 15px;}
+    .accordion-title.active a:before {content:"-";}
+    .accordion-content { position: relative;overflow: hidden;padding: 20px;}
+    .no-js .accordion-content {padding: 1em;overflow: auto;display: block;}
+    .accordion-content:after {position: absolute; top: 100%;left: 0; width: 100%;height: 50px;content:''; }
+	.accordion-title a span{ width:94%;}
+	.accordion-title a span br{ display:none;}
+	.accordion-title a span{height:50px;}
+	.form-control-contaner {margin-top: 20px;}
+}
+
+@media only screen and (max-width: 767px) {
+	 .navbar-nav > li > a {font-size:17px;} 	
+	 .slutions_contaners > li{width:70%;}
+	 
+	 .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand { max-width: 117px;  width: 100%;}
+	.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand img {width: 100%;}
+	.text_contaner h3{font-size:27px;
+}
+
+
+@media only screen and (max-width: 500px) {
+	 .slutions_contaners > li{width:90%;}
+}
+@media only screen and (max-width: 400px) {
+	 .slutions_contaners > li{width:100%;}
+	 .download_btn_contaner{width:100%;}
+}

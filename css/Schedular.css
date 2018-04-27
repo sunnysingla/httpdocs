@@ -1,0 +1,245 @@
+﻿.buttonDeleteTable {
+    background: #d93434;
+    background-image: -webkit-linear-gradient(top, #d93434, #b82b2b);
+    background-image: -moz-linear-gradient(top, #d93434, #b82b2b);
+    background-image: -ms-linear-gradient(top, #d93434, #b82b2b);
+    background-image: -o-linear-gradient(top, #d93434, #b82b2b);
+    background-image: linear-gradient(to bottom, #d93434, #b82b2b);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Arial;
+    color: #fffcff;
+    font-size: 8px;
+    z-index: 1000 !important;
+    padding: 5px 5px 5px 5px;
+    text-decoration: none;
+    margin-top: 17px !important;
+    position: absolute !important;
+    color: white !important;
+    display: none;
+}
+
+#kn-scene_1443 /* main screen */ {
+    min-width: 1217px;
+}
+
+#Datacontained table.kn-responsive, #view_3391, #view_3392, #view_3393, #view_3394 {
+    display: none;
+}
+
+#view_3385 ul li a {
+    padding: 1px 5px !important;
+}
+/* Master Schedule Shading - Summer */
+#view_3385 /* Menu View */ {
+    float: right;
+    margin-right: 1%;
+}
+
+.searchTxtPlaceholder, .scroll li, #rightDiv {
+     
+ 
+}
+
+.searchTxtPlaceholder {
+    display: block;
+ 
+    font-weight: bold;
+    color: white !important;
+    padding-left: 10px;
+    background-color: #2065ac;
+    line-height: 1.7;
+    width: 100%;
+}
+
+.scroll li {
+    padding: 4px;
+}
+
+    .scroll li:hover {
+        background-color: #FFA07A;
+    }
+
+.scroll {
+    width: 100%;
+    height: 106px;
+    overflow: auto;
+    text-decoration: none;
+    list-style-type: none;
+    margin-top: 2px;
+    -webkit-padding-start: 6px;
+    margin-bottom: 0px;
+}
+
+#leftDiv {
+    width: 75%;
+    float: left;
+    min-height: 200px;
+ 
+    margin-top:10px;
+}
+
+
+.close-icon {
+    content: "X";
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    z-index: 20000;
+    border-radius: 50%;
+    text-align: center;
+    color: black;
+    font-weight: normal;
+    font-size: 8px;
+    border: 1px solid transparent;
+    vertical-align: middle;
+    outline: 0;
+    cursor: pointer;
+    margin-right: 20px;
+    position: absolute;
+    float: right;
+    padding-top: 0px;
+    padding-left: 3px;
+    display: none;
+}
+
+
+#leftDiv td input[type=text] {
+    z-index: 1000;
+    position: relative;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.88);
+    color: black;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.adjustSpace {
+    margin-top: -2px;
+}
+
+    .adjustSpace input[type=text] {
+        font-size: 8px !important;
+    }
+
+td[ind*=tbl] {
+    width: 400px;
+}
+.txtClass {
+    text-align: center;
+    padding-bottom: 26px !important;
+    height: 40px;
+ 
+}
+
+#leftDiv table, #leftDiv table tr, #leftDiv table tr td,
+#Datacontained table, #Datacontained table tr, #Datacontained table tr td {
+    /*border: 1px solid white !important;*/
+    /*background-color: rgb(255, 255, 255);*/
+}
+
+#leftDiv tbody td {
+    /*padding: 4px 13px;*/
+}
+
+#kn-scene_1443 .kn-entries-summary {
+    display: none;
+}
+
+#kn-scene_1443 .view-header {
+    visibility: hidden;
+    height: 0px;
+}
+
+#rightDiv {
+    width: 20%;
+    float: right;
+    min-height: 200px;
+    position: absolute;
+    margin-left: 76.5%;
+ 
+}
+
+.droptarget {
+    float: left;
+    width: 100px;
+    height: 35px;
+    margin: 15px;
+    padding: 10px;
+    border: 1px solid #aaaaaa;
+}
+.ui-autocomplete {
+    max-height: 200px !important;
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+    z-index: 2000 !important;
+}
+.TableClass {
+    width: 350px;
+    position: absolute;
+    padding: 14px;
+    margin-top: -227px;
+ 
+    padding-top: 11px;
+    height: 205px;
+}
+
+.TableIndex {
+    font-weight: bold;
+    width: 38px !important;
+    font-size: 17px;
+    height: 16px !important;
+    position: absolute !important;
+    margin-left: -40px;
+    margin-top: 0px;
+    background-color: #e3e2e2 !important;
+}
+#contact input[type="text"], #contact input[type="email"], #contact input[type="tel"], #contact input[type="url"], #contact input[type="phone"], #contact textarea {
+ 
+    border-radius: 1px !important; 
+}
+.CompleteTables {
+    /*width: 98%;*/
+ 
+}
+img {
+    height: 100px;
+    width: 100px;
+    margin: 2px;
+}
+
+.draggable {
+    filter: alpha(opacity=60);
+    opacity: 0.6;
+}
+
+.dropped {
+    position: static !important;
+}
+
+#dvSource, #dvDest {
+    border: 5px solid #ccc;
+    padding: 5px;
+    min-height: 100px;
+    width: 430px;
+}
+
+/* Reading Beta */
+
+#view_2058 .kn-table {
+    max-width: 75%;
+}
+
+
+.Selected {
+    position: absolute;
+    z-index: 2000;
+    height: 20px;
+    width: 20px;
+    margin-left: 1px;
+    display: none;
+}
+.ui-dialog {
+   z-index:3001;
+}

@@ -1,0 +1,20 @@
+﻿select {
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    color: #363636;
+    font-size: 14px!important;
+    height: 35px;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    line-height: 24px;
+    padding-left: 8px;
+    position: relative;
+    vertical-align: top;
+ 
+    cursor: pointer;
+    display: block;
+    padding-right: 36px;
+}

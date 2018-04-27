@@ -1,0 +1,46 @@
+﻿#leftDiv {
+    width: 50.5%;
+    float: left;
+    height: 340px;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    margin-left:-2%;
+}
+
+#rightDiv {
+    width: 46%;
+    float: right;
+    height: 340px;
+    position: absolute;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    margin-left: 46% !important;
+}
+.fullDiv {
+    width: 102%;
+    float: right;
+ 
+ 
+    border: 1px solid #ccc;
+}
+.btnMailBox td button{
+    margin-top: -10px; margin-left: 0px !important;
+}
+.blanlTd {
+    height: 8px;
+}
+#leftDiv table,
+#rightDiv table {
+    margin-left: 20px;
+}
+    #leftDiv table td input,
+    #rightDiv table td input {
+        width: 100% !important;
+    }
+    #leftDiv table td textarea {
+        height: 80px;
+     }
+        #leftDiv h3, #rightDiv h3 {
+    margin-top: 0px;
+}
+

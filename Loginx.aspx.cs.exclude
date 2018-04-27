@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using System.Web.Script.Serialization;
+using System.Web.Services;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace FSCollateral
+{
+    public partial class Login : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            Session["UserID"] = null;
+        }
+
+ 
+
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+            DataSet dsResult = new DataSet();
+            DataFunctions df = new DataFunctions();
+            GenralFunction gf = new GenralFunction();
+            SqlParameter[] PM = new SqlParameter[2];
+            PM[0] = new SqlParameter("@FranchiseId", SqlDbType.BigInt);
+            PM[0].Value = HttpContext.Current.Session["FranchiseID"].ToString();
+
+            PM[1] = new SqlParameter("@UserName", SqlDbType.VarChar);
+            PM[1].Value = txtEmail.Text;
+
+            dsResult = gf.Filldatasetvalue(PM, "USP_CheckOverRide", dsResult, null);
+
+            //Session["UserID"] = txtEmail.Text;
+            //Response.Redirect("~/index.aspx", false);
+
+            //Response.Redirect("Index.aspx");
+            //string domainname = User.Identity.Name.Substring(0, User.Identity.Name.IndexOf("\\"));
+            //bool isValidate = WindowsAuthenticate(txtEmail.Text, txtPassword.Text, domainname);
+
+            //if (isValidate)
+            //{
+            //    Session["UserID"] = txtEmail.Text;
+            Response.Redirect("~/Default.aspx", false);
+                //Common.InsertSessionLog(txtEmail.Text);
+                //Common.InsertUserState("Login", Session["SessionId"].ToString());
+            //}
+            //else
+            //    lblError.Text = "Invalid username or password";
+
+            
+        }       
+    }
+}

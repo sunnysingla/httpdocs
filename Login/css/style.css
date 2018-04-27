@@ -1,0 +1,264 @@
+@charset "UTF-8";
+/******************************
+ 3RD PARTY PLUGIN CUSTOMIZATION 
+******************************/
+/* ==========================================================================
+    1. CSS RESET
+============================================================================= */
+html
+{
+height: 100%;
+}
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption,center, cite, code, dd, del, details, dfn, dialog, div, dl, dt, em, embed, fieldset, figcaption, figure, font, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, hr, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, meter, nav, object, ol, output, p, pre, progress, q, rp, rt, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video, xmp { border: 0; margin: 0; padding: 0;}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display: block;}
+b, strong {font-weight: bold;}
+img {color: transparent; font-size: 0; vertical-align: middle; -ms-interpolation-mode: bicubic; max-width: 100%;}
+ol, ul {list-style: none;}
+li {display: list-item;}
+table {border-collapse: collapse; border-spacing: 0;}
+th, td, caption {font-weight: normal; vertical-align: top; text-align: left;}
+q {quotes: none;}
+q:before, q:after {content: ''; content: none;}
+sub, sup, small {font-size: 75%;}
+sub,sup {line-height: 0; position: relative; vertical-align: baseline;}
+sub {bottom: -0.25em;}
+sup {top: -0.5em;}
+svg {overflow: hidden;}
+a{list-style: none; text-decoration: none;}
+a:active{outline: none;}
+a:focus{ outline: none;}
+:focus {outline: 0;}
+.clearfix{clear: both;}
+
+#logo{float: left;  max-width: 100%; padding:15px 0px;}
+
+.social-info{float: right !important; padding-top:22px; margin-bottom:3px;}
+
+.social-info1{float: left !important;  padding-top: 5px; margin-bottom:3px;}
+
+.social-info .social-links{ float: left; padding-top: 0px;}
+
+.social-info .client{ float: left; padding-top: 0px; margin-left:30px;}
+
+.social-info .social-links li{float: left; display: block;  margin-left: 15px; padding-bottom:5px;}
+
+.social-info .client li{float: left;  display: block;  margin: 0px;	padding-left:35px;	padding-bottom:8px;}
+
+.social-links li a{font-size: 14px;  color: #262626;  -webkit-transition: all 0.2s ease 0s;  -moz-transition: all 0.2s ease 0s;
+    -o-transition: all 0.2s ease 0s;  -ms-transition: all 0.2s ease 0s;  transition: all 0.2s ease 0s;}
+
+.client li a{font-size: 15px; font-weight:500; color: #0063a8;  -webkit-transition: all 0.2s ease 0s;  -moz-transition: all 0.2s ease 0s;
+    -o-transition: all 0.2s ease 0s;  -ms-transition: all 0.2s ease 0s; transition: all 0.2s ease 0s;}
+
+.client li a:hover{color:#eb642e}
+
+
+.admin-user {background:url(../img/avtar.png) no-Repeat 0px 0;}
+
+.logout {background:url(../img/logout.png) no-Repeat 12px 0;}
+
+.user { background: url(../img/user.png) no-repeat 12px center;color: #d2e6e9;}
+
+.user-pass {background: url(../img/pass-key.png) no-repeat 12px center;}
+
+
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #d2e6e9;
+}
+
+.login_fields:after {
+    content: '';
+    width: 1px;
+    height: 90%;
+    position: absolute;
+    left: 45px;
+    top: 4%;
+}
+
+.login-box fieldset {
+    max-width: 100%;
+    margin-bottom: 20px;
+    width: 100%;
+    float: left;
+}
+
+
+.wpcf7-submit{
+    font: 16px 'Open Sans', average_sansregular;
+    text-transform: uppercase;
+    line-height: 11px;
+    color: #fff;
+    background-color: #e15d28;
+    padding: 18px 17px;
+	width:100%;
+	cursor: pointer;
+    float: left;
+	text-align:center;
+	border-radius:2px !important;
+	margin-bottom:20px;
+    -webkit-transition: all 0.2s ease 0s;
+    -moz-transition: all 0.2s ease 0s;
+    -o-transition: all 0.2s ease 0s;
+    -ms-transition: all 0.2s ease 0s;
+    transition: all 0.2s ease 0s;
+
+}
+
+.wpcf7-submit:hover{background:#fff; border-radius:2px; text-decoration:none;}
+
+/* MAIN NAVIGATION 
+----------------------------------------------------------------------------- */
+#nav-container{ width: 100%; height: 53px; text-align:center;  z-index: 900;  position: relative;}
+
+#nav{ height: 100%; padding: 16px 0; list-style: none;}
+
+#nav > ul{display: block !important;}
+
+#nav li{ display:inline-block; position: relative; cursor: pointer;}
+
+#nav li > a{ width: 100%; height: 100%; font: 12px "Open+Sans",sans-serif;}
+
+#nav > ul > li > a{text-transform: capitalize;}
+
+#nav li > a span.has-sub{background: #333; color: #fff;  padding: 0 3px;  font-size: 11px;  line-height: 10px;  margin-left: 5px;  -webkit-transition: all 0.2s ease 0s;  -moz-transition: all 0.2s ease 0s;  -o-transition: all 0.2s ease 0s;  -ms-transition: all 0.2s ease 0s;
+    transition: all 0.2s ease 0s;}
+
+#nav > ul > li{padding-left: 56px;  height: 23px;  box-sizing: border-box;  -webkit-box-sizing: border-box;  -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;	list-style-type:none;}
+
+#nav li a{float: none; display: block; font: 16px "Open+Sans",sans-serif; color: #FFF; }
+
+
+/* MAIN NAVIGATION SECOND LEVEL
+----------------------------------------------------------------------------- */
+#nav li ul{display: none; position: absolute;	padding-top: 15px;  margin: 0;  top: 100%;  left: 0; z-index: 100;}
+
+#nav li ul li{ border-right: 1px solid #e6e6e6; border-left: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6; background: #f8f8f8; 
+    -webkit-transition: all 0.2s ease 0s; -moz-transition: all 0.2s ease 0s; -o-transition: all 0.2s ease 0s; -ms-transition: all 0.2s ease 0s;
+    transition: all 0.2s ease 0s;}
+
+#nav li ul li:first-child{ border-top: 1px solid #e6e6e6;}
+
+#nav > ul > li:first-child {padding-left: 0px !important;}
+
+#nav li ul li:hover > a{ text-indent: 3px;}
+
+#nav li ul li:hover{ background: #fff;}
+
+#nav li ul li a{
+    text-transform: none !important;
+    font: 15px "Open+Sans",sans-serif;
+    line-height: 15px;
+    color: #333 !important;
+    padding: 12px 20px !important; 
+
+    transition-property: text-indent;
+    transition-duration: 0.2s;
+    -webkit-transition-property: text-indent;
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-property: text-indent;
+    -moz-transition-duration: 0.2s;
+    -o-transition-property: text-indent;
+    -o-transition-duration: 0.2s;
+}
+
+#nav li ul li, #nav li ul li a{float: none;}
+
+#nav li ul li a {width: 150px; display: block;}
+
+.blue { background: #0063a8;}
+
+.header-wrapper {width: 100%; position: relative; z-index: 1000;}
+
+.login_fields input { width: 100%; float: left; padding:10PX 15px;  font-weight:normal;   text-indent:30px;  font-size: 15px;
+    background-size: 20px;	background:none;   color: #d2e6e9;}
+	
+.h-text-bg{background: url(../img/h-text-bg.png) no-repeat left bottom; margin: 70px 0px 72px; padding: 60px 0px 0px 60px; min-height: 390px;}
+
+.logo-bg{background:url(../img/logo-bg.png) no-repeat left top; padding-left:60px;}
+
+.mar-tb-25{margin:25% 0px 35%;}
+
+.mar_25bt{margin-bottom:25px;}
+
+.mar_25tp{margin-top:25px;}
+
+.mar_40bt{margin-bottom:40px;}
+
+.mar_80tp{margin-top:80px;}
+
+.mar_10bt{margin-bottom:10px;}
+
+.mar_tp10{margin-top:10px;}
+
+.login_bg{padding:25px 0px; height:330px;; background-color:rgba(0,63,107,0.40); border-radius:10px; margin:30px 0px;}
+
+.body-bg {background:url(../img/body-bg.jpg) no-repeat center bottom !important; background-size:cover !important}
+
+.text-center{text-align:center}
+
+.Add_new1 {cursor: pointer; margin-left: 4px;}
+
+.portlet-border{border:1px solid #e1e1e1; width:100%; border-top:0px; padding-bottom:20px;}
+
+.color_bg th{background:#f5f5f5; font-weight:bold}
+
+
+/* ==========================================================================
+    6. FOOTER 
+============================================================================= */
+.footer-wrapper{float: left;  width: 100%;    margin: 0 auto;position: fixed;
+    bottom: 0px;}
+
+#footer{ background: #3a3a3a;  width: 100%;   padding-top: 40px;}
+
+.footer-wrapper p, 
+.footer-wrapper a{color: #CCC;  -webkit-transition: all 0.2s ease 0s;   -moz-transition: all 0.2s ease 0s;  -o-transition: all 0.2s ease 0s;
+    -ms-transition: all 0.2s ease 0s; transition: all 0.2s ease 0s; }
+
+.copyright-container{ background: #0063a8; padding: 20px 0px 20px 0px;  border-top: 1px solid #f26932;	color:#ffffff;}
+
+
+
+
+	
+@media (max-width: 1199.99px) {
+.h-text-bg { background:#ffffff; margin:40px 0px 50px; padding:0px 20px 0px 60px;   }
+.logo-bg{background:url(../img/logo-bg.png) no-repeat left top;}
+.mar-tb-25{margin:15% 0px 27%;}
+.login_bg{padding:25px 0px; height:330px;; background-color:rgba(0,63,107,0.40); border-radius:10px; margin:30px 0px 0px;}
+}
+
+
+@media (max-width: 991.99px) {
+    .h-text-bg {background:#ffffff;
+	 margin:40px 0px 50px; padding:0px 20px;     min-height: 100px;}
+	.logo-bg{
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b6e0fc+0,71aed9+100 */
+background: #b6e0fc; /* Old browsers */
+background: -moz-linear-gradient(left, #b6e0fc 0%, #71aed9 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left, #b6e0fc 0%,#71aed9 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right, #b6e0fc 0%,#71aed9 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b6e0fc', endColorstr='#71aed9',GradientType=1 ); /* IE6-9 */}
+    .mar-tb-25{margin:15% 0px 25%;}
+	.login_bg{padding:25px 0px; height:330px;; background-color:rgba(0,63,107,0.40); border-radius:10px; margin:45px 0px 30px;}
+}
+
+@media (max-width: 575.99px){
+	.h-text-bg { background:#ffffff;
+	 margin:40px 0px; padding:0px 20px;    min-height: 50px;}
+	 .logo-bg{
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b6e0fc+0,71aed9+100 */
+background: #b6e0fc; /* Old browsers */
+background: -moz-linear-gradient(left, #b6e0fc 0%, #71aed9 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left, #b6e0fc 0%,#71aed9 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right, #b6e0fc 0%,#71aed9 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b6e0fc', endColorstr='#71aed9',GradientType=1 ); /* IE6-9 */}	 
+	.mar-tb-25{margin:30px 0px;}
+	 .h-text-bg h1{font-size:25px;}
+	 .login_bg h3{font-size:20px; text-align:center; margin-bottom:10px;}
+	 .login_bg .logo{text-align:center; padding:0px 0px 15px;}
+	.login_bg{padding:25px 0px; height:330px;; background-color:rgba(0,63,107,0.40); border-radius:10px; margin:10px 0px 30px;}
+	.copyright-container{padding: 25px 0px 0px 0px;}
+}
